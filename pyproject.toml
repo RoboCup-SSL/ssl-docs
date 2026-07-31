@@ -1,0 +1,14 @@
+[project]
+name = "ssl-docs"
+version = "0.1.0"
+description = "RoboCup Small Size League documentation"
+requires-python = ">=3.12"
+dependencies = [
+    "sphinx>=7.0",
+    "myst-parser>=2.0",
+    "furo>=2024.1.29",
+    "sphinx-autobuild>=2024.10.3",
+]
+
+[tool.uv]
+package = false

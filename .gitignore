@@ -1,0 +1,23 @@
+# Sphinx build output
+_build/
+.doctrees/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Nix
+result
+result-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
