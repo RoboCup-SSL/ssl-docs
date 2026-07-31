@@ -60,6 +60,18 @@ jobs:
       - name: Check external links
         run: nix develop -c sphinx-build -b linkcheck docs-source _build/linkcheck
 
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Spellcheck
+        run: nix develop -c codespell docs-source README.md
+
   deploy:
     if: github.event_name == 'push'
     needs: build

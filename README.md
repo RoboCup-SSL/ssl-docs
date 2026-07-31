@@ -37,6 +37,30 @@ Serves at `localhost:8000` (`--port` to override).
 
 Dependency changes: edit `pyproject.toml`, run `uv lock`.
 
+## Checks
+
+CI runs these on every push/PR. Run all locally:
+
+```bash
+scripts/check.sh
+```
+
+Or individually:
+
+```bash
+# strict build (broken refs/directives fail)
+nix develop -c sphinx-build -W -b html docs-source _build/html
+
+# internal links/refs only, no HTML output
+nix develop -c sphinx-build -W -n -b dummy docs-source _build/dummy
+
+# external links
+nix develop -c sphinx-build -b linkcheck docs-source _build/linkcheck
+
+# spelling (codespell)
+nix develop -c codespell docs-source README.md
+```
+
 ## Deploy
 
 `main` push → [`.github/workflows/docs.yml`](.github/workflows/docs.yml) builds + deploys via GitHub Pages Actions. Not RTD-hosted.

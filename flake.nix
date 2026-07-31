@@ -49,6 +49,7 @@
           packages = [
             venv
             pkgs.uv
+            pkgs.codespell
           ];
 
           shellHook = ''
