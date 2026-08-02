@@ -30,6 +30,7 @@ run_check build nix develop -c sphinx-build -W -b html docs-source _build/html
 run_check internal-links nix develop -c sphinx-build -W -n -b dummy docs-source _build/dummy
 run_check external-links nix develop -c sphinx-build -b linkcheck docs-source _build/linkcheck
 run_check spellcheck nix develop -c codespell docs-source README.md
+run_check format nix develop -c mdformat --check --wrap 120 docs-source README.md
 
 echo
 echo "== Summary =="

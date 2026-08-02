@@ -18,6 +18,7 @@ result-*
 Thumbs.db
 
 # Editors
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 *.swp
