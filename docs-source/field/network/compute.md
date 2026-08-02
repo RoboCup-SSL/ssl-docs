@@ -1,4 +1,16 @@
-# Network and Compute
+# Compute
+
+## Machine Specifications
+
+### Vision Computer
+
+The vision computer will run with a modest modern setup.
+
+### Game Controller Computer
+
+### Streaming Computer
+
+### Team Computer
 
 ## Physical Network (L1/L2)
 
@@ -21,13 +33,3 @@ the devices that need it. **Teams should not expect to receive PoE unless this h
 organizer.** Event organizers may need substantial heads up to accommodate this request.
 
 ### Multicast (IGMP)
-
-## Machine Specifications
-
-### Vision Computer
-
-### Game Controller Computer
-
-### Streaming Computer
-
-### Team Computer

@@ -25,7 +25,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "furo"
 html_static_path = ["_static"]
-html_css_files = ["camera-calc.css"]
+html_css_files = ["site.css", "camera-calc.css"]
 html_js_files = ["camera-calc.js"]
 
 

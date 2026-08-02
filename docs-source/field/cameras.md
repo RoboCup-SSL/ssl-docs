@@ -333,6 +333,10 @@ $$
 
 This is comfortably above 100%, consistent with this being the actual working competition configuration.
 
+This can be seen practically in the below photo of the Peachtree Open Field, where the cameras are at different heights.
+
+![Peachtree Open Field](images/peachtree-open-field.jpg)
+
 #### In Each Team's Home Lab
 
 Both teams practice on a much smaller field than Division B — approximately $4.5 \times 3.5\ \text{m}$ each, still

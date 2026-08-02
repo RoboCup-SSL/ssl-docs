@@ -29,11 +29,16 @@ most university or community labs for weekly practice.
 - [Competition Layout](field/complayout.md)
 - [Lab Layout](field/lablayout.md)
 
-## Network and Compute
+## Compute and Physical Network
 
 The following pages describe the physical network/compute setup and the protocols carried over it.
 
-- [Network and Compute](field/network/compute.md)
+- [Compute](field/network/compute.md)
+- [Competition Network](field/network/compnetwork.md)
+- [Lab Network](field/network/labnetwork.md)
+
+## Protocols
+
 - [Vision Protocol](field/network/vision.md)
 - [Referee Protocol](field/network/referee.md)
 - [Team Client Protocol](field/network/teamclient.md)
@@ -50,6 +55,8 @@ field/camera-calculator.md
 field/complayout.md
 field/lablayout.md
 field/network/compute.md
+field/network/compnetwork.md
+field/network/labnetwork.md
 field/network/vision.md
 field/network/referee.md
 field/network/teamclient.md
