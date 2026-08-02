@@ -23,64 +23,60 @@ Jump ahead if you'd like.
 ### Pixel Density
 
 [Pixel density](https://en.wikipedia.org/wiki/Pixel_density) describes the number of pixels in a unit area, typically
-pixels per inch (PPI) or pixel per cm (PPCM). This is important for interpreting the robot jersey. If there aren't
-enough pixels covering the needed features, we can't see the robot. Recall that cameras have a
-[field of view](https://en.wikipedia.org/wiki/Field_of_view), which is like a cone that expands outward from camera
-sensor (left). The lens determines the properties of this cone. Your eyes also do this; intuitively you can see objects
-close to you in more detail than objects far away. The same is true of the cameras on a RoboCup field. The main factor
-that makes this easy, is that the camera height relative to the field surface is fixed. So if we know the camera height,
-and properties of the cone, we can compute pixel density (or use algebra to solve for any unknown). Lets consider two
-images.
+pixels per inch (PPI) or pixels per cm (PPCM). This matters because interpreting the robot jersey requires enough pixels
+covering its features; without enough, the robot's position cannot be recovered. Cameras have a
+[field of view](https://en.wikipedia.org/wiki/Field_of_view), a cone that expands outward from the camera sensor. The
+lens determines the properties of this cone, the same way your eyes resolve close objects in more detail than distant
+ones. Because the camera's height above the field is fixed, knowing the height and the cone's properties is enough to
+compute pixel density, or to solve for any other unknown in that relationship.
 
 | Field of View                                   | Robot Jersey                                                |
 | ----------------------------------------------- | ----------------------------------------------------------- |
 | ![Field of View](images/Angle_of_view.svg.webp) | ![Green Tea 2021 Robot](images/greentea-2021bot-jersey.jpg) |
 
-On the left we see an example of a camera with field of view. On the right we see an SSL Robot (GreenTea 2021) with the
-jersey on top. If the camera resolution is too low to see the yellow, pink, and green dots, then the position can't be
-recovered. Consider the picture on the left and the green box in it. Notice the farther from the camera it gets, the
-bigger the area of the green box. Since the number of pixels in the image sensor is fixed, and the farther away from the
-image sensor the bigger the green box, the number of pixels per unit area must also decrease. Eventually this crosses a
-threshold, for example where the pixel is the size of a dot, where meaningful distance is no longer recovered. We must
-ensure that in the final camera configuration that enough pixels cover each dot and the golf ball.
+The left image shows a camera's field of view; the right shows an SSL robot's jersey (GreenTea 2021). If camera
+resolution is too low to distinguish the yellow, pink, and green dots, the robot's position cannot be recovered. In the
+left image, the green box grows larger the farther it sits from the camera. Since the sensor has a fixed number of
+pixels, and that same pixel count spreads across a larger area farther from the camera, pixel density decreases with
+distance. Eventually density drops below the size of a single dot, and position can no longer be recovered. The final
+camera configuration must provide enough pixels to resolve each dot and the ball.
 
 ### Field of View
 
-Field of View (FoV) generally refers to the properties of the box or cone expanding from the image sensor, as seen
-above. This is almost always described by either a single angle for a cone, or a horizontal and vertical angle for the
-pyramid. Since the field of view determines how much pixel density we lose per unit distance we travel from the image
-sensor, it's a key camera parameter. A wider FoV means we lose more pixel density per unit distance from the camera, but
-the camera also sees more of its immediate environment. This behavaes like a geometry problem, if your ceiling is low
-you want a wider FoV, you can imagine if the cone/pyramid is very narrow and your ceiling is low, you simply won't see
-the outer parts of the field. As such, any given FoV is not good or bad, but part of the equation. A key challenge here
-is that cheaper webcams typically have an integrated lens with a wide FoV. That may or may not work with your specific
-space. High end cameras separate the camera and lens, giving you full control. However, this is usually much more
-expensive.
+Field of view (FoV) refers to the properties of the cone or pyramid expanding from the image sensor, described above. It
+is almost always given as either a single angle for a cone, or a horizontal and vertical angle for a pyramid. Because
+FoV determines how much pixel density is lost per unit distance from the sensor, it is a key camera parameter: a wider
+FoV loses more pixel density per unit distance but sees more of its surroundings. This is a geometry tradeoff — a low
+ceiling calls for a wider FoV, since a narrow cone or pyramid under a low ceiling will not reach the outer parts of the
+field. No single FoV is inherently good or bad; it is a tradeoff against mounting height and cost. Cheaper webcams
+typically have an integrated lens with a fixed, wide FoV, which may not suit every space. High-end cameras separate the
+camera body and lens, giving full control over FoV, at greater expense.
 
 ### Shutter Type
 
-The "shutter type" in this context, refers to a virtual shutter (physical shutters are not present on the cameras we
-buy). The two major types are "rolling" and "global". A rolling shutter converts one row of pixels in the image at a
-time, where as global converts the whole image at once. A rolling shutter is cheaper, but when objects are moving
-quickly, that means different parts of the object are converted at different times. This is sometimes called the jello
-effect. A global shutter avoids this, but at substantial cost and engineering complexity in the image sensor. **Global
-shutters are universally preferred for robotics and computer vision tasks, but many teams do not buy them for their lab
-due to cost (sometimes 5-10x cost).** The league competition cameras are global shutter. **Anyone hosting an event
-should try to acquire global shutter cameras.** The tradeoff here is related to robot speed. The smearing/jello effect
-gets worse the faster an object is going. This often means on a small lab test patch, where robot speed is limited by
-field size, global shutters offer no real benefit. On regulation field with more open space, robots can achieve a much
-higher speed. This means global shutter cameras become necessary. The exactly magnitude of the jello effect is a
-function of a few settings, including exposure, which are environmentally dependent. This means it's not possible to
-make a reliable statement like "global shutter is needed above robot speed X".
+In this context, "shutter type" refers to a virtual shutter; physical shutters are not present on the cameras we buy.
+The two major types are rolling and global. A rolling shutter converts one row of pixels at a time, whereas a global
+shutter converts the whole image at once. A rolling shutter is cheaper, but when objects move quickly, different parts
+of the object are converted at different times, an artifact sometimes called the jello effect. A global shutter avoids
+this, at substantial cost and engineering complexity in the image sensor. **Global shutters are universally preferred
+for robotics and computer vision tasks, but many teams do not buy them for their lab due to cost (sometimes 5-10x
+cost).** The league's competition cameras are global shutter. **Anyone hosting an event should try to acquire global
+shutter cameras.**
 
-Teledyne-FLIR, our competition camera provider, has an excellent
-[detailed write up of this effect](https://www.teledynevisionsolutions.com/learn/learning-center/imaging-fundamentals/rolling-vs-global-shutter/).
-An animation from Teledyne is included below as a top level example.
+The tradeoff is robot speed. The jello effect worsens as an object moves faster. On a small lab test patch, where robot
+speed is limited by field size, global shutters offer no real benefit. On a regulation field with more open space,
+robots reach much higher speeds, and global shutter cameras become necessary. The exact magnitude of the jello effect
+depends on several environmentally dependent settings, including exposure, so it is not possible to state a reliable
+threshold like "global shutter is needed above robot speed X".
+
+Teledyne-FLIR, our competition camera provider, has a
+[detailed write-up of this effect](https://www.teledynevisionsolutions.com/learn/learning-center/imaging-fundamentals/rolling-vs-global-shutter/),
+including the animation below.
 
 ![Rolling vs Global Shutter](images/teledyne-rolling-vs-global-shutter_images_1.gif)
 
-Sony makes the global shutter image sensors integrated by Teledyne-FLIR. They have a real-world example of the
-difference between the shutter types. Look at the curving of the helicopter rotor blades below.
+Sony makes the global shutter image sensors that Teledyne-FLIR integrates. Their real-world example below shows the
+difference between the shutter types in the curving of the helicopter rotor blades.
 
 ```{youtube} YmEH8z1JWgc
 ```
@@ -91,21 +87,19 @@ difference between the shutter types. Look at the curving of the helicopter roto
 
 ### Software Support by League Vision Software
 
-The last key factor in purchasing a camera is software support. Most USB webcams use a standard protocol, which is
-supported via [Video4Linux](https://en.wikipedia.org/wiki/Video4Linux) (v4l). The league vision tools integrated with
-v4l drivers natively. No development is needed for support. You may want to ensure you camera controls, like white
-balance and exposure, can be set from linux and commanded to not auto calibrate. An auto-calibration at the camera level
-is likely to break the color calibration in the league software which expects it to remain the same after the initial
-setup.
+The last key factor in purchasing a camera is software support. Most USB webcams use a standard protocol, supported via
+[Video4Linux](https://en.wikipedia.org/wiki/Video4Linux) (v4l); the league vision tools integrate with v4l drivers
+natively, so no development is needed for support. Ensure your camera's controls, such as white balance and exposure,
+can be set from Linux and commanded not to auto-calibrate. Auto-calibration at the camera level is likely to break the
+league software's color calibration, which expects those settings to remain constant after initial setup.
 
-Global shutter and other high end machine vision cameras typically do not support standard usb drivers as they don't
-operate in a standard way. This means the vendor supplies a custom API that much be used. For the league cameras,
-Teledyne-FLIR provides
+Global shutter and other high-end machine vision cameras typically do not support standard USB drivers, since they do
+not operate as standard USB devices; the vendor instead supplies a custom API that must be used. For the league cameras,
+Teledyne-FLIR provides the
 [Spinnaker SDK](https://www.teledynevisionsolutions.com/products/spinnaker-sdk/?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis)
-for their USB3 and GiGE camera. The league software already supports this API, though sometimes small tweaks are needed
-for a given camera model. If you pick a high-end machine vision camera that is not supported by the Spinnaker SDK, you
-will probably need to write your own driver interface code for the league software. This is possible, but not a trivial
-task.
+for their USB3 and GigE cameras. The league software already supports this API, though sometimes small tweaks are needed
+for a given camera model. Picking a high-end machine vision camera not supported by the Spinnaker SDK will probably
+require writing your own driver interface code for the league software. This is possible, but not a trivial task.
 
 ## Calculating Major Factors for Your Lab
 
@@ -337,7 +331,7 @@ $$
 \frac{2(5512 \times 4414) + 2(5300 \times 4245)}{10{,}400 \times 7400}\ \text{mm}^2 \approx \frac{93.6\ \text{m}^2}{77.0\ \text{m}^2} \approx 122\%
 $$
 
-Comfortably above 100%, consistent with this being the actual working competition configuration.
+This is comfortably above 100%, consistent with this being the actual working competition configuration.
 
 #### In Each Team's Home Lab
 
@@ -398,7 +392,7 @@ $h_{\text{required}} \approx 1.46\ \text{m}$ to cover the patch at all — well 
 enough that, at the assumed height, both coverage and density have large margin. That's the opposite of what was
 expected here, which most likely means either the actual mounting height is lower than 8 ft (e.g. shelf- or arm-mounted
 well below the ceiling, not ceiling-mounted), or the real testing patch is smaller than the stated upper bound in a way
-that matters less than height does. Worth confirming the real height if this configuration is meant to illustrate a
+that matters less than height does. The real height is worth confirming if this configuration is meant to illustrate a
 geometry-limited case.
 
 ## Additional Resources
