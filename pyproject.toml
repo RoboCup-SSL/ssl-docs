@@ -12,6 +12,7 @@ dependencies = [
     "mdformat-myst>=0.2",
     "mdformat-gfm>=0.4",
     "sphinxcontrib-youtube>=1.4",
+    "sphinxcontrib-mermaid>=0.9",
 ]
 
 [tool.uv]

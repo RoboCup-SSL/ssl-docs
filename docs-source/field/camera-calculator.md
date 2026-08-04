@@ -10,8 +10,8 @@ Enter numbers instead of doing the arithmetic in
     <legend>Physical Space</legend>
     <div class="camera-calc-grid">
       <label><span>Mounting height <span class="math notranslate nohighlight">\(h\)</span> (mm)</span><input type="number" id="cc-h" value="6000"></label>
-      <label>Field width (mm, optional)<input type="number" id="cc-tw"></label>
-      <label>Field height (mm, optional)<input type="number" id="cc-th"></label>
+      <label><span>Field width (mm, optional)</span><input type="number" id="cc-tw"></label>
+      <label><span>Field height (mm, optional)</span><input type="number" id="cc-th"></label>
     </div>
     <div class="camera-calc-radio">
       <button type="button" class="camera-calc-preset" id="cc-preset-a">Load Division A (13400 &times; 10400 mm)</button>
@@ -43,7 +43,7 @@ Enter numbers instead of doing the arithmetic in
       <label><span>Sensor height <span class="math notranslate nohighlight">\(s_v\)</span> (mm)</span><input type="number" id="cc-sv" value="7.07"></label>
     </div>
     <div class="camera-calc-grid">
-      <label>Pixel size (µm, assumes square pixels)<input type="number" id="cc-px" value="3.45" disabled></label>
+      <label><span>Pixel size (µm, assumes square pixels)</span><input type="number" id="cc-px" value="3.45" disabled></label>
     </div>
     <p class="camera-calc-note">One of sensor size or pixel size is computed from the other and resolution, based on
     the mode selected above — the greyed-out field isn't editable while its value is derived.</p>
@@ -64,11 +64,11 @@ Enter numbers instead of doing the arithmetic in
       <label><span>Focal length <span class="math notranslate nohighlight">\(f\)</span> (mm)</span><input type="number" id="cc-f" value="5"></label>
     </div>
     <div class="camera-calc-grid">
-      <label>Widest focal length (mm)<input type="number" id="cc-f-min" value="3.9" disabled></label>
-      <label>Narrowest focal length (mm)<input type="number" id="cc-f-max" value="10" disabled></label>
+      <label><span>Widest focal length (mm)</span><input type="number" id="cc-f-min" value="3.9" disabled></label>
+      <label><span>Narrowest focal length (mm)</span><input type="number" id="cc-f-max" value="10" disabled></label>
     </div>
     <div class="camera-calc-grid">
-      <label>Diagonal FoV (deg)<input type="number" id="cc-fov-d" value="78" disabled></label>
+      <label><span>Diagonal FoV (deg)</span><input type="number" id="cc-fov-d" value="78" disabled></label>
     </div>
     <p class="camera-calc-note">Fixed mode mirrors the single focal length into both ends of the varifocal range.
     Varifocal mode derives the greyed-out focal length as the range's midpoint — a display convenience, not a real
@@ -87,7 +87,7 @@ Enter numbers instead of doing the arithmetic in
     </div>
     <div class="camera-calc-grid">
       <label><span>Marker diameter <span class="math notranslate nohighlight">\(d\)</span> (mm)</span><input type="number" id="cc-d" value="40" disabled></label>
-      <label>Min px across marker<input type="number" id="cc-nmin" value="6" disabled></label>
+      <label><span>Min px across marker</span><input type="number" id="cc-nmin" value="6" disabled></label>
     </div>
     <p class="camera-calc-note">League defaults: 40 mm ID dot (the smaller, limiting marker per the
     <a href="https://ssl.robocup.org/rules/">SSL Rules</a> vision pattern), 6 px minimum (see

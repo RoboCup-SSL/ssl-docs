@@ -1,0 +1,53 @@
+---
+config:
+  layout: elk
+  elk:
+    nodePlacementStrategy: NETWORK_SIMPLEX
+---
+flowchart TD
+    subgraph Switch["Field-Side Switch (see network core diagram) — IGMP Snooping"]
+        Note["All Links: GbE · PoE: Remotes Only"]
+
+        subgraph Officiating["Officiating Core"]
+            Vision["Vision Computer"]
+            GC["Game Controller"]
+            BR["Blue Remote<br/>GbE · PoE"]
+            YR["Yellow Remote<br/>GbE · PoE"]
+            SB["Status Board"]
+            Vision ~~~ GC ~~~ BR ~~~ YR ~~~ SB
+        end
+
+        subgraph TeamFacing["Team-Provided"]
+            BT["Blue Team PC"]
+            YT["Yellow Team PC"]
+            BT ~~~ YT
+        end
+
+        subgraph Broadcast["Broadcast / AV — Optional"]
+            Stream["Streaming PC"]
+            Audio["Audio Referee"]
+            Boards["Boards ×(N+1)"]
+            Stream ~~~ Audio ~~~ Boards
+        end
+
+        Note ~~~ Officiating
+        Note ~~~ TeamFacing
+        Note ~~~ Broadcast
+    end
+
+    classDef gray fill:#f1f5f9,stroke:#64748b,color:#1e293b;
+    classDef purple fill:#f5f3ff,stroke:#7c3aed,color:#3b0764;
+    classDef teal fill:#f0fdfa,stroke:#0d9488,color:#134e4a;
+    classDef coral fill:#fff1f2,stroke:#f43f5e,color:#7f1d1d;
+
+    class Vision gray;
+    class GC,BR,YR purple;
+    class SB coral;
+    class BT,YT teal;
+    class Stream,Audio,Boards coral;
+
+    style Note fill:none,stroke:none,color:#475569,font-style:italic
+    style Switch fill:none,stroke:#2563eb,stroke-dasharray:4 3,stroke-width:1.5px
+    style Officiating fill:none,stroke:#7c3aed,stroke-dasharray:3 3,stroke-width:1.5px
+    style TeamFacing fill:none,stroke:#0d9488,stroke-dasharray:3 3,stroke-width:1.5px
+    style Broadcast fill:none,stroke:#f43f5e,stroke-dasharray:3 3,stroke-width:1.5px
