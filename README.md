@@ -1,9 +1,10 @@
 # SSL Docs
 
 [**Live docs → robocup-ssl.github.io/ssl-docs**](https://robocup-ssl.github.io/ssl-docs/)
-
 [![Build and deploy docs](https://github.com/RoboCup-SSL/ssl-docs/actions/workflows/docs.yml/badge.svg)](https://github.com/RoboCup-SSL/ssl-docs/actions/workflows/docs.yml)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
+
+See the [Contributing Guide](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md)!
 
 RoboCup Small Size League docs. [Sphinx](https://www.sphinx-doc.org/) + [MyST](https://myst-parser.readthedocs.io/), deployed to GitHub Pages via Actions.
 
