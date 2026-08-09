@@ -166,4 +166,42 @@ legend box.
 
 ## Technical Configurations
 
+This section contains technical configurations for the network and computers that aren't captured by the physical and
+logical layouts above.
+
 ### Hostnames
+
+The hostname convention for machines is `<owner/event>-<role>-<id>`. Examples are included below.
+
+ - truss NUCs: `ssl-vision-a`, `ssl-vision-b` etc.
+ - field vision computer: `ssl-vision-b0` where "b0" is the field name
+ - field game controller computer: `ssl-gc-b0` where "b0" is the field name
+
+Host names may also reflect the machine owner or event name `pto-vision` where "pto" refers to the Peachtree Open.
+
+### LAN Config
+
+Field LAN should always be [IPv4](https://en.wikipedia.org/wiki/IPv4) and never 
+[IPv6](https://en.wikipedia.org/wiki/IPv6), though the upstream WAN/venue network may be IPv6. Field LAN should supply 
+at least a /24 subnet, with /16 preferred. For an example network, 10.10.0.0/16:
+
+ - Subnet address CIDR notation: `10.10.0.0/16`
+ - Gateway: 10.10.0.1
+ - Reserved for management addressing: `10.10.0.2`-`10.10.0.5`
+ - DHCP range: `10.10.0.6`-`10.10.255.249`
+ - Broadcast address: `10.10.255.255`
+
+[CIDR standardized notation and allocations](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+
+### IGMP Querier and IGMP Snooping Settings
+
+Somebody knowledgeable needs to root cause, data cap, and show mitigation settings. Look at Incheon stuff...
+
+## Additional Resources
+
+ - [Network Router](https://en.wikipedia.org/wiki/Router_(computing))
+ - [Network Switch](https://en.wikipedia.org/wiki/Network_switch)
+ - [IPv4](https://en.wikipedia.org/wiki/IPv4)
+ - [Classless Inter-Domain Routing](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+ - [List of Reserved IP Addresses](https://en.wikipedia.org/wiki/List_of_reserved_IP_addresses)
+ - [Power over Ethernet](https://en.wikipedia.org/wiki/Power_over_Ethernet)

@@ -1,4 +1,4 @@
-# Field Documentation
+# Field Technical Documentation
 
 This page serves as a directory for common resources related to field mechanics, networks, and overall setup. As always,
 the [SSL Rules](https://ssl.robocup.org/rules/) are the authoritative source, but many items are left formally
@@ -31,22 +31,18 @@ most university or community labs for weekly practice.
 
 ## Compute and Physical Network
 
-The following pages describe the physical network/compute setup and the protocols carried over it.
+See the compute page for recommended machine specifications and brands.
 
 - [Compute](field/network/compute.md)
+
+See the network pages below for detailed descriptions of competition networks and home lab networks.
+
 - [Competition Network](field/network/compnetwork.md)
 - [Lab Network](field/network/labnetwork.md)
 
-## Protocols
-
-- [Vision Protocol](field/network/vision.md)
-- [Referee Protocol](field/network/referee.md)
-- [Team Client Protocol](field/network/teamclient.md)
-- [Simulator Protocol](field/network/simulator.md)
-
 ```{toctree}
 ---
-maxdepth: 2
+maxdepth: 1
 caption: Contents
 ---
 field/carpet.md
@@ -57,8 +53,4 @@ field/lablayout.md
 field/network/compute.md
 field/network/compnetwork.md
 field/network/labnetwork.md
-field/network/vision.md
-field/network/referee.md
-field/network/teamclient.md
-field/network/simulator.md
 ```

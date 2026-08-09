@@ -6,7 +6,9 @@ common to the league as a whole.
 
 ## Common Pages of Interest
 
-Coming soon.
+ - [Field Technical Documentation](field.md)
+ - [Field Camera Calculator](field/camera-calculator.md)
+ - [Protocol/Coms Technical Documentation](protocol.md)
 
 ## Motivation
 
@@ -28,4 +30,5 @@ maxdepth: 0
 caption: Contents
 ---
 field
+protocol
 ```

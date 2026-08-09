@@ -1,4 +1,4 @@
-# Compute
+# Compute Resources
 
 This brief article lists vendors and approximiate specification of league computing resources.
 
@@ -19,8 +19,8 @@ fist releasing in 2017. As such, their specification is quite modest.
 
 ## Field Side Vision Computer
 
-The league doesn't own field side computers. They are typically provided by the
-venue contract. Approximate minimum specification is provided below:
+The league doesn't own field side computers. They are typically provided by the venue contract. Approximate minimum
+ specification is provided below:
 
  - GPU: 4-core/8-thread Processor from within the last 5 years
  - GPU: Integrated GPU
@@ -33,8 +33,8 @@ When deployed as a vision processor host:
 
 ## Game Controller Computer
 
-The league doesn't own field side computers. They are typically provided by the
-venue contract. Approximate minimum specification is provided below:
+The league doesn't own field side computers. They are typically provided by the venue contract. Approximate minimum
+specification is provided below:
 
  - GPU: 4-core/8-thread Processor from within the last 5 years
  - GPU: Integrated GPU
@@ -44,12 +44,13 @@ venue contract. Approximate minimum specification is provided below:
 
 ## Remote Controls
 
-Remote controls are Raspberry Pi 4, 4GB model. Accessory hardware (screens, PoE)
-is decribed on the [ssl-remote-control repository](https://github.com/RoboCup-SSL/ssl-remote-control).
+Remote controls are Raspberry Pi 4, 2GB or 4GB model. Accessory hardware (screens, PoE) is decribed on the
+[ssl-remote-control repository](https://github.com/RoboCup-SSL/ssl-remote-control). These device need at least PoE+ to
+deliver enough power.
 
 ## Status Board
 
-Status board computers are Raspberry Pi 4, 4GB model. Any computer capable of
+Status board computers are Raspberry Pi 4, 2GB or 4GB model. Any computer capable of
 hosting a small webpage can fill this role.
 
 ## Streaming Computer
