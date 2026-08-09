@@ -1,5 +1,6 @@
 # Sphinx build output
 _build/
+_built/
 .doctrees/
 
 # Generated light/dark drawio SVG exports (rendered at build time, see conf.py)
