@@ -1,7 +1,5 @@
 # League Protocols and Communication
 
-
-
 ```{toctree}
 ---
 maxdepth: 1
@@ -12,5 +10,3 @@ protocol/referee.md
 protocol/teamclient.md
 protocol/simulator.md
 ```
-
-

@@ -18,3 +18,8 @@ dependencies = [
 
 [tool.uv]
 package = false
+
+[tool.codespell]
+# Generated per-theme drawio SVG exports (see conf.py) embed base64 font
+# data whose glyph byte runs randomly collide with codespell's dictionary.
+skip = "*.light.svg,*.dark.svg"

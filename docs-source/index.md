@@ -6,9 +6,9 @@ common to the league as a whole.
 
 ## Common Pages of Interest
 
- - [Field Technical Documentation](field.md)
- - [Field Camera Calculator](field/camera-calculator.md)
- - [Protocol/Coms Technical Documentation](protocol.md)
+- [Field Technical Documentation](field.md)
+- [Field Camera Calculator](field/camera-calculator.md)
+- [Protocol/Coms Technical Documentation](protocol.md)
 
 ## Motivation
 

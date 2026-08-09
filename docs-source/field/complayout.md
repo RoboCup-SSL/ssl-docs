@@ -106,15 +106,15 @@ The vision computer is the device labeled "VIS" in the diagram. The vision compu
 and ball position data on the network. League software processes camera data and field geometry to produce accurate
 positions. This computer needs a connection to one or more cameras directly, or their associated mounted computer. The
 specifics of this connection can be very field dependent and are described in more detail under the possible
-configurations section below. See the [Vision Protocol](network/vision.md) page for the league software that fills this
-role.
+configurations section below. See the [Vision Protocol](/protocol/vision.md) page for the league software that fills
+this role.
 
 ### Game Controller Computer
 
 The game controller computer is the device labeled "GC" in the diagram. The game controller computer manages the game
 state and publishes this information to the network. It also accepts requests from the teams via the remote control or
-optionally the team AI software. See the [Referee Protocol](network/referee.md) page for the league software that fills
-this role.
+optionally the team AI software. See the [Referee Protocol](/protocol/referee.md) page for the league software that
+fills this role.
 
 ### Remote Control
 

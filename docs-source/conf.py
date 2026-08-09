@@ -160,3 +160,25 @@ linkcheck_user_agent = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/124.0.0.0 Safari/537.36"
 )
+
+# Some vendor sites sit behind bot-mitigation (WAF/CDN) that rejects every
+# automated request with an instant 403 regardless of user-agent or headers,
+# even though the pages load fine in a real browser (both curl with a real
+# browser UA and the WebFetch tool get the same instant 403 — this isn't a
+# UA-sniffing check we can spoof our way past). Each URL below was manually
+# opened in a browser and confirmed good on the noted date; re-verify and
+# bump the date if one starts 404ing for real.
+linkcheck_ignore = [
+    # rolling vs global shutter write-up — verified 2026-08-09
+    r"^https://www\.teledynevisionsolutions\.com/learn/learning-center/imaging-fundamentals/rolling-vs-global-shutter/$",
+    # Spinnaker SDK product page — verified 2026-08-09
+    r"^https://www\.teledynevisionsolutions\.com/products/spinnaker-sdk/\?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis$",
+    # dual-channel PoE GigE host adapter (ACC-01-1105) — verified 2026-08-09
+    r"^https://www\.teledynevisionsolutions\.com/products/ethernet-network-interface-card/\?model=ACC-01-1105&vertical=machine%20vision&segment=iis$",
+    # Computar E3Z4518CS-MPIR lens product page — verified 2026-08-09
+    r"^https://www\.bhphotovideo\.com/c/product/1091754-REG/computar_e3z4518cs_mpir_1_2_4_5_13_2mm_f1_8_dn\.html$",
+    # Computar E3Z3915CS-MPWIR 4K lens product page — verified 2026-08-09
+    r"^https://www\.bhphotovideo\.com/c/product/1524951-REG/computar_e3z3915cs_mpwir_4k_1_1_8_3_9_10mm_f1_5\.html$",
+    # Intel Core i7-7567U spec sheet — verified 2026-08-09
+    r"^https://www\.intel\.com/content/www/us/en/products/sku/97541/intel-core-i77567u-processor-4m-cache-up-to-4-00-ghz/specifications\.html$",
+]

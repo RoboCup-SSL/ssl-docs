@@ -60,3 +60,5 @@ possible. The [Cameras](cameras.md) page has advice on camera and lens selection
 ### Optional Items
 
 Lab setups almost always omit the status board, remote controls, audio ref, and stream equipment.
+
+## Recommended Equipment
