@@ -6,7 +6,7 @@ flowchart TD
     Cameras -- "Direct — bypasses switch<br/>PoE or USB w/ extenders" --> Vision["Vision Computer<br/>Dedicated interfaces ×4"]
     Vision -- "GbE" --> Switch["Field-Side Switch<br/>(see network core diagram)"]
 
-    classDef gray fill:#f1f5f9,stroke:#64748b,color:#1e293b;
-    classDef blue fill:#eff6ff,stroke:#2563eb,color:#1e3a8a;
-    class Cameras,Vision gray;
-    class Switch blue;
+    classDef purple fill:#faf5ff,stroke:#9333ea,color:#581c87;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    class Cameras purple;
+    class Vision,Switch cyan;

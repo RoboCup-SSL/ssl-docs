@@ -2,6 +2,10 @@
 _build/
 .doctrees/
 
+# Generated light/dark drawio SVG exports (rendered at build time, see conf.py)
+docs-source/**/*.light.svg
+docs-source/**/*.dark.svg
+
 # Python
 __pycache__/
 *.pyc

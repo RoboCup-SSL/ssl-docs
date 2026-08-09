@@ -1,0 +1,542 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Lab/Home Field" href="lablayout.html"><link rel="prev" title="Camera Field of View Calculator" href="camera-calculator.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Competition Field - RoboCup Small Size League documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/site.css?v=d73bfd70" />
+    <link rel="stylesheet" type="text/css" href="../_static/camera-calc.css?v=eebc80cb" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">RoboCup Small Size League  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">RoboCup Small Size League  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../field.html">Field Documentation</a><input aria-label="Toggle navigation of Field Documentation" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="carpet.html">Flooring and Carpet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cameras.html">Cameras and Lenses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera-calculator.html">Camera Field of View Calculator</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Competition Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lablayout.html">Lab/Home Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/compute.html">Compute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/compnetwork.html">Competition Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/labnetwork.html">Lab Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/vision.html">Vision Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/referee.html">Referee Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/teamclient.html">Team Client Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/simulator.html">Simulator Protocol</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/field/complayout.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section class="tex2jax_ignore mathjax_ignore" id="competition-field">
+<h1>Competition Field<a class="headerlink" href="#competition-field" title="Link to this heading">¶</a></h1>
+<p>This page describes a full feature competition field setup and layout.
+<a class="reference external" href="https://robocup-ssl.github.io/ssl-rules/sslrules.html#_dimensions">Field dimensions</a> are described in the SSL Rules.</p>
+<p>Aspects of the described field are optional, particularly audience facing items. When something is optional, it is so
+noted.</p>
+<section id="top-level-diagram">
+<h2>Top Level Diagram<a class="headerlink" href="#top-level-diagram" title="Link to this heading">¶</a></h2>
+<p>A full diagram is provided below. Scale is approximately relative to the field, but omitted to allow for local variance.</p>
+<p><img alt="Full Competition Field Diagram" src="../_images/comp-field-arch-icons.svg" /></p>
+<p>There’s a lot to dissect here, but lets define some abbreviations:</p>
+<ul class="simple">
+<li><p>GC - Game Controller</p></li>
+<li><p>VIS - Vision Computer</p></li>
+<li><p>NE - Networking Equipment</p></li>
+<li><p>SC - Streaming Computer</p></li>
+</ul>
+<p>The colors hold meaning as well:</p>
+<ul class="simple">
+<li><p>Yellow - Yellow Team resource</p></li>
+<li><p>Blue - Blue Team resource</p></li>
+<li><p>Cyan - Event/league resource</p></li>
+<li><p>Orange - Role provided by neutral party</p></li>
+<li><p>Pink - Role provided by neurtal party</p></li>
+</ul>
+</section>
+<section id="placement-and-layout-guidance">
+<h2>Placement and Layout Guidance<a class="headerlink" href="#placement-and-layout-guidance" title="Link to this heading">¶</a></h2>
+<p>The above layout is intentionally crafted to provide a smooth experience for officials, teams, and spectators.</p>
+<section id="field-placement">
+<h3>Field Placement<a class="headerlink" href="#field-placement" title="Link to this heading">¶</a></h3>
+<p>The field should placed in the venue such that a clear separation between spectators and teams is achieved. There’s
+should be a team area away from the field, often called “the pits”, where mechanical and electrical work is done. Teams
+spend most of their time in the pits when not competing in a match or testing during an official testing time slot.
+Spectators should be granted a clear view of the competition field, but distanced from the pits. Occasionally robots
+malfunction so this separation is key. A physical barrier is recommended between spectators and the field and pits.</p>
+</section>
+<section id="tables">
+<h3>Tables<a class="headerlink" href="#tables" title="Link to this heading">¶</a></h3>
+<p>Enough tables should be provided such that the vision and game controller each have at least half a table. Each team
+should have at least 1 full table at the field during their match or registered practice slot. A permanent dedicated
+field table for the full duration of the event is not guaranteed; teams may need to share between matches. Tables should
+be no smaller than ~1m x 2m (3 x 6ft).</p>
+<p>A gap should be present at the midfield line so game officials and robot handles have easy access to enter and leave the
+field. Care should be taken to secure netwokring cables on the ground at this entry point in particular. This is also
+the area most likely to be used to put in and remove robots (compared to the far side).</p>
+<p>Organizers should avoid placing tables between the field and spectators. Typically with specified field size and number
+of teams in attendance it is not necessary to place tables all the way around the field. This means it is possible to
+keep clear line of sight between spectators and the field. This also has the advantage of placing the robot handlers and
+remote controls in closer proximity to the referee and game controller. If issues arise via challenge flags, or field
+network faults all of the relevant parties are in closer proximity to each other to resolve any issues.</p>
+<p>Each table should be provided with one power outlet and one networking cable. It is the team’s responsibility to bring a
+power strip or network switch if they need more than one connection when arriving at their table for the match.</p>
+</section>
+<section id="event-equipment">
+<h3>Event Equipment<a class="headerlink" href="#event-equipment" title="Link to this heading">¶</a></h3>
+<p>The vision and game controller computers should be placed close to each other, the midfield line, and the referee. This
+has several advantages:</p>
+<ul class="simple">
+<li><p>The Referee and GCO can communicate easily</p></li>
+<li><p>The VE and GCO can communicate as necessary</p></li>
+<li><p>Networking is centrally located and can be patched more easily</p></li>
+<li><p>A physical space buffer is provided between the teams and the midfield, lowering congestion</p></li>
+</ul>
+<p>It’s shown in the diagram as being split across the midfield line, but combining them into one table on a single side is
+also common. If this is done, it’s preferable to have one empty table on the opposing side, or to omit it to provide the
+referee a buffer.</p>
+<p>Ideally, at least one status board is positioned such that the audience, referees, and teams have good visibility into
+the game state. While most events provide at least one status board, a first time event or casual meetup for scrimamge
+may not set up any status boards.</p>
+<p>If possible, the Audio Referee (at least the speaker) should be placed on the far side of the field so it speaks only to
+the audience, not the field <em>and</em> audience. It can speak fairly often and this can be overwhelming to the referee and
+assistant referee who may be attempting to communicate both across the field and a language barrier.</p>
+</section>
+</section>
+<section id="function-of-components">
+<h2>Function of Components<a class="headerlink" href="#function-of-components" title="Link to this heading">¶</a></h2>
+<p>Only the function of components, not people are described here. For the purpose of specific human roles, consult the
+rules.</p>
+<section id="networking-equipment">
+<h3>Networking Equipment<a class="headerlink" href="#networking-equipment" title="Link to this heading">¶</a></h3>
+<p>The networking equipment is the small cyan box labeled “NE” on the diagram. It is typically centrally located near the
+ground. The networking equipment is responsible for connecting all of the computers at the field and providing essential
+network services. See the <a class="reference internal" href="network/compute.html"><span class="std std-doc">Network and Compute</span></a> for physical network details.</p>
+</section>
+<section id="cameras">
+<h3>Cameras<a class="headerlink" href="#cameras" title="Link to this heading">¶</a></h3>
+<p>One or more overhead cameras are needed to observe the field and pass video frames to league processing software. These
+cameras are typically mounted between 2.5m and 6.5m above the field. At official tournaments, they are typically mounted
+around 6.0-6.25m. When cameras are mounted near the top of the range, a small computer is mounted with the camera on the
+truss or building features. This is usually to overcome difficulties in transmitting raw camera data long distances.
+More information is present in the <a class="reference internal" href="cameras.html"><span class="std std-doc">Cameras and Lenses</span></a> page.</p>
+</section>
+<section id="vision-computer">
+<h3>Vision Computer<a class="headerlink" href="#vision-computer" title="Link to this heading">¶</a></h3>
+<p>The vision computer is the device labeled “VIS” in the diagram. The vision computer is responsible for providing robot
+and ball position data on the network. League software processes camera data and field geometry to produce accurate
+positions. This computer needs a connection to one or more cameras directly, or their associated mounted computer. The
+specifics of this connection can be very field dependent and are described in more detail under the possible
+configurations section below. See the <a class="reference internal" href="network/vision.html"><span class="std std-doc">Vision Protocol</span></a> page for the league software that fills this
+role.</p>
+</section>
+<section id="game-controller-computer">
+<h3>Game Controller Computer<a class="headerlink" href="#game-controller-computer" title="Link to this heading">¶</a></h3>
+<p>The game controller computer is the device labeled “GC” in the diagram. The game controller computer manages the game
+state and publishes this information to the network. It also accepts requests from the teams via the remote control or
+optionally the team AI software. See the <a class="reference internal" href="network/referee.html"><span class="std std-doc">Referee Protocol</span></a> page for the league software that fills
+this role.</p>
+</section>
+<section id="remote-control">
+<h3>Remote Control<a class="headerlink" href="#remote-control" title="Link to this heading">¶</a></h3>
+<p>Each team is provided a remote control at the field to interact with the controller/referee software. These are labeled
+“RC” in the diagram. Teams use these to request timeouts and robot exchanges. If possible, the 3D printed cases should
+be color matched to the team so it’s clear which remote is which. Additionally, cables should be color matched as well.
+Often times networking contractors at large events are unable to accommodate the remote color matching.</p>
+<p><img alt="Remote Control" src="../_images/peachtree-open-remote-controls.png" /></p>
+</section>
+<section id="team-computer">
+<h3>Team Computer<a class="headerlink" href="#team-computer" title="Link to this heading">¶</a></h3>
+<p>Teams are responsible for bringing their own computer to run their software and AI. Teams should expect only one network
+and one power connection at their table.</p>
+</section>
+<section id="status-board-recommended-optional">
+<h3>Status Board (Recommended, Optional)<a class="headerlink" href="#status-board-recommended-optional" title="Link to this heading">¶</a></h3>
+<p>The status board displays the score, game time, and events such as infractions and goals. At least one display should be
+available to the referees and teams. Additional displays for the audience are optional.</p>
+</section>
+<section id="streaming-computer-optional">
+<h3>Streaming Computer (Optional)<a class="headerlink" href="#streaming-computer-optional" title="Link to this heading">¶</a></h3>
+<p>The streaming computer is labeled “SC” on the diagram. It is an optional system to record and stream video in realtime
+to one or more livestreams. It is capable of switching between camera feeds and can receive the game state on the field
+network to produce a scoring overlay for viewiers. This is the only computer to which an internet connection is
+guaranteed to be provided. Because it is optional, some competitions completely omit this system.</p>
+</section>
+<section id="audio-referee-optional">
+<h3>Audio Referee (Optional)<a class="headerlink" href="#audio-referee-optional" title="Link to this heading">¶</a></h3>
+<p>The <a class="reference external" href="https://github.com/TIGERs-Mannheim/AudioRef">audio referee</a> receives the game state and announces key events to the
+audience automatically. Because it is optional, some competitions completely omit this system.</p>
+</section>
+</section>
+<section id="possible-configurations">
+<h2>Possible Configurations<a class="headerlink" href="#possible-configurations" title="Link to this heading">¶</a></h2>
+<p>A key challenge with setting up a RoboCup SSL events or lab space is the camera arrangement. Mounting cameras high up
+carries strong advantages in producing a low-distoration image with a fewer number of cameras. This is a massive benefit
+when setting up many fields at the international event. However, for many lab spaces and lower-cost events mounting
+cameras at 6m simply isn’t possible (ceiling is too low) or carries significant expense (renting overhead mounts and
+certified personnel). As such, camera configuration may vary from event to event, though the main international event is
+fiarly consistent. Some common configurations are listed below.</p>
+<section id="international-event-division-b">
+<h3>International Event - Division B<a class="headerlink" href="#international-event-division-b" title="Link to this heading">¶</a></h3>
+<p>The simplest configuration is the international event Division B field. In this configuration, a single camera is
+mounted at ~6.25m in position “A” in the layout diagram. A computer is mounted with it on the overhead truss. The vision
+computer remotely accesses the camera computer mounted overhead. In this configuration, the vision computer is only used
+for remote access.</p>
+</section>
+<section id="international-event-division-a">
+<h3>International Event - Division A<a class="headerlink" href="#international-event-division-a" title="Link to this heading">¶</a></h3>
+<p>The second simplest configuration is the international event Division A field. In this configuration, a two cameras are
+mounted at ~6.25m in positions “B” in the layout diagram. Each camera covers half a field. A single camera is not used
+because it would need to be nearly quadruple the resolution and mounted even higher, which often practically impossible.
+A computer is mounted with each camera on the overhead truss in positions “B”. The vision computer remotely accesses the
+camera computers mounted overhead, one at a time. In this configuration, the vision computer is only used for remote
+access.</p>
+</section>
+<section id="regional-event">
+<h3>Regional Event<a class="headerlink" href="#regional-event" title="Link to this heading">¶</a></h3>
+<p>Regional events may cut costs by mounting a higher number of cameras lower to the ground. These cameras can also be
+lower resolution because they are covering a smaller area of the field. This configuration is used at the North American
+Peachtree Open Event. In this configuration, 4 cameras are mounted at positions “C”. Because the data is lower and
+mounting is lower, computers are not mounted overhead with the cameras, but instead the raw camera data is sent directly
+to the vision computer. In this case, the vision computer is not used for remote access, but directly hosts the software
+that processes the vision data.</p>
+<p><img alt="Peachtree Open Field" src="../_images/peachtree-open-field.jpg" /></p>
+<p>This picture is taken from the 1st Annual Peachtree Open. Notice there are four overhead cameras, none with associated
+computers overhead. The vision and game controller computers are on the back field side, though they are obstructing the
+midfield line which is not ideal. Note team tables to the left (and right, not pictured) do not block the spectator
+view. Blue pipe and drape separates the spectators from the field. Team pits are located along the back wall.</p>
+<p>Not all regional events use this modified configuration. For example the Japan Open and German Open do not, as they have
+established infrastructure and event space to do the higher mounting.</p>
+</section>
+<section id="university-lab-space">
+<h3>University Lab Space<a class="headerlink" href="#university-lab-space" title="Link to this heading">¶</a></h3>
+<p>University lab space also has ceiling height and cost constraints most of the time. A typical lab configuration looks
+similar to the regional event configuration, but with only a partial field and even fewer cameras. Often labs have a
+half or quarter Division B field, with one or two cameras. Sometimes the cameras are mounted to the side and not
+overhead. More details on this configuration can be seen in the <a class="reference internal" href="lablayout.html"><span class="std std-doc">lab layout</span></a> page.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="lablayout.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Lab/Home Field</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="camera-calculator.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Camera Field of View Calculator</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 1980, RoboCup Small Size League
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Competition Field</a><ul>
+<li><a class="reference internal" href="#top-level-diagram">Top Level Diagram</a></li>
+<li><a class="reference internal" href="#placement-and-layout-guidance">Placement and Layout Guidance</a><ul>
+<li><a class="reference internal" href="#field-placement">Field Placement</a></li>
+<li><a class="reference internal" href="#tables">Tables</a></li>
+<li><a class="reference internal" href="#event-equipment">Event Equipment</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#function-of-components">Function of Components</a><ul>
+<li><a class="reference internal" href="#networking-equipment">Networking Equipment</a></li>
+<li><a class="reference internal" href="#cameras">Cameras</a></li>
+<li><a class="reference internal" href="#vision-computer">Vision Computer</a></li>
+<li><a class="reference internal" href="#game-controller-computer">Game Controller Computer</a></li>
+<li><a class="reference internal" href="#remote-control">Remote Control</a></li>
+<li><a class="reference internal" href="#team-computer">Team Computer</a></li>
+<li><a class="reference internal" href="#status-board-recommended-optional">Status Board (Recommended, Optional)</a></li>
+<li><a class="reference internal" href="#streaming-computer-optional">Streaming Computer (Optional)</a></li>
+<li><a class="reference internal" href="#audio-referee-optional">Audio Referee (Optional)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#possible-configurations">Possible Configurations</a><ul>
+<li><a class="reference internal" href="#international-event-division-b">International Event - Division B</a></li>
+<li><a class="reference internal" href="#international-event-division-a">International Event - Division A</a></li>
+<li><a class="reference internal" href="#regional-event">Regional Event</a></li>
+<li><a class="reference internal" href="#university-lab-space">University Lab Space</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/camera-calc.js?v=61f5d528"></script>
+    </body>
+</html>
