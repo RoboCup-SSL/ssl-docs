@@ -1,0 +1,26 @@
+---
+config:
+  layout: elk
+  elk:
+    mergeEdges: false
+    nodePlacementStrategy: BRANDES_KOEPF
+---
+flowchart TB
+    Upstream["Upstream / Venue Network"] --> Router["Router / Firewall<br/>Shared — Per-Venue"]
+    Router -- "Trunk — 802.1Q Tagged" --> S1["Field 1 Switch<br/>VLAN 10 · Tagged"]
+    Router -- "Trunk — 802.1Q Tagged" --> S2["Field 2 Switch<br/>VLAN 20 · Tagged"]
+    Router -- "Trunk — 802.1Q Tagged" --> SN["Field N Switch<br/>VLAN N0+"]
+
+    S1 --> Truss1["Truss Cameras"]
+    S1 --> FS1["Field-Side Devices"]
+    S2 -.-> Note2["(Same downstream pattern as Field 1)"]
+    SN -.-> NoteN["(Same downstream pattern as Field 1)"]
+
+    classDef amber fill:#fffbeb,stroke:#d97706,color:#78350f;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    classDef gray fill:#f1f5f9,stroke:#64748b,color:#1e293b;
+    classDef slate fill:#f8fafc,stroke:#475569,color:#0f172a;
+    class Upstream slate;
+    class Router amber;
+    class S1,S2,SN cyan;
+    class Truss1,FS1,Note2,NoteN gray;

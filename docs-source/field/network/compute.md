@@ -1,0 +1,69 @@
+# Compute Resources
+
+This brief article lists vendors and approximiate specification of league computing resources.
+
+Below are the minimum specifications of league equipment. In for everything but the streaming computer, the minimum
+specification is often driven by supporting a stable and smooth desktop environment.
+
+## Truss Vision Computer (Next Unit of Computing - NUC)
+
+The Intel NUCs are the truss computers. The league owns
+[7th generation NUCs](https://www.intel.com/content/www/us/en/products/sku/97541/intel-core-i77567u-processor-4m-cache-up-to-4-00-ghz/specifications.html),
+fist releasing in 2017. As such, their specification is quite modest.
+
+- CPU:
+  [i7-7567U](https://www.intel.com/content/www/us/en/products/sku/97541/intel-core-i77567u-processor-4m-cache-up-to-4-00-ghz/specifications.html)
+  @3.5GHz [Benchmark](https://www.cpubenchmark.net/cpu.php?cpu=Intel+Core+i7-7567U+%40+3.50GHz&id=2990)
+- GPU: Intel® Iris® Plus Graphics 650
+- OpenCL Version 3.0
+- RAM: 16GB DDR4
+- OS: Xubuntu 22.04 LTS
+
+## Field Side Vision Computer
+
+The league doesn't own field side computers. They are typically provided by the venue contract. Approximate minimum
+specification is provided below:
+
+- GPU: 4-core/8-thread Processor from within the last 5 years
+- GPU: Integrated GPU
+- OpenCL: Version 3.0+
+- RAM: 16GB DDR5
+- OS: Ubuntu LTS
+
+When deployed as a vision processor host:
+
+- 1-2x
+  [Teledyne FLIR Dual Channel PoE GigE Host Adapter](https://www.teledynevisionsolutions.com/products/ethernet-network-interface-card/?model=ACC-01-1105&vertical=machine%20vision&segment=iis)
+
+## Game Controller Computer
+
+The league doesn't own field side computers. They are typically provided by the venue contract. Approximate minimum
+specification is provided below:
+
+- GPU: 4-core/8-thread Processor from within the last 5 years
+- GPU: Integrated GPU
+- OpenCL: Version 3.0+
+- RAM: 16GB DDR5
+- OS: Ubuntu LTS
+
+## Remote Controls
+
+Remote controls are Raspberry Pi 4, 2GB or 4GB model. Accessory hardware (screens, PoE) is described on the
+[ssl-remote-control repository](https://github.com/RoboCup-SSL/ssl-remote-control). These device need at least PoE+ to
+deliver enough power.
+
+## Status Board
+
+Status board computers are Raspberry Pi 4, 2GB or 4GB model. Any computer capable of hosting a small webpage can fill
+this role.
+
+## Streaming Computer
+
+The league doesn't own field side computers. They are typically provided by the venue contract. Approximate minimum
+specification is provided below:
+
+- GPU: 8-core/16-thread Processor >4.0GHz
+- GPU: Nvidia 2060 or better, capable of 4k video transcoding
+- OpenCL: Version 3.0+
+- RAM: 32GB DDR5
+- OS: Ubuntu LTS

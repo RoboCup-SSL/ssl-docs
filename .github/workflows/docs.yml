@@ -72,6 +72,18 @@ jobs:
       - name: Spellcheck
         run: nix develop -c codespell docs-source README.md
 
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Check formatting
+        run: nix develop -c mdformat --check --wrap 120 docs-source README.md
+
   deploy:
     if: github.event_name == 'push'
     needs: build

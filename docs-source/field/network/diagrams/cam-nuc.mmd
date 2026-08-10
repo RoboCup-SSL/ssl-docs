@@ -1,0 +1,13 @@
+flowchart TD
+    subgraph TrussNuc["Truss — Elevated (1–2 Camera Config)"]
+        Camera["Camera ×1–2<br/>1 NUC per camera"]
+        NUC["Truss NUC<br/>Dedicated, 1:1"]
+        Camera -- "USB 3.1" --> NUC
+    end
+
+    NUC -- "GbE<br/>(via switch, remote access)" --> Switch["Field-Side Switch<br/>(see network core diagram)"]
+
+    classDef purple fill:#faf5ff,stroke:#9333ea,color:#581c87;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    class Camera purple;
+    class NUC,Switch cyan;

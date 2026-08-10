@@ -1,6 +1,11 @@
 # Sphinx build output
 _build/
+_built/
 .doctrees/
+
+# Generated light/dark drawio SVG exports (rendered at build time, see conf.py)
+docs-source/**/*.light.svg
+docs-source/**/*.dark.svg
 
 # Python
 __pycache__/
@@ -18,6 +23,10 @@ result-*
 Thumbs.db
 
 # Editors
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 *.swp
+
+# Claude Code local overrides
+.claude/settings.local.json

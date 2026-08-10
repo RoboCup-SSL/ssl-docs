@@ -1,0 +1,12 @@
+flowchart TD
+    subgraph TrussDirect["Truss — Elevated (4-Camera Config)"]
+        Cameras["Cameras ×4<br/>Direct wiring"]
+    end
+
+    Cameras -- "Direct — bypasses switch<br/>PoE or USB w/ extenders" --> Vision["Vision Computer<br/>Dedicated interfaces ×4"]
+    Vision -- "GbE" --> Switch["Field-Side Switch<br/>(see network core diagram)"]
+
+    classDef purple fill:#faf5ff,stroke:#9333ea,color:#581c87;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    class Cameras purple;
+    class Vision,Switch cyan;
