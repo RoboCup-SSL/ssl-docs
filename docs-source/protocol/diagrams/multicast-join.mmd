@@ -1,0 +1,17 @@
+---
+config:
+  layout: elk
+  elk:
+    nodePlacementStrategy: NETWORK_SIMPLEX
+---
+flowchart TD
+    Team["Team Client<br/>IGMP join only"] -- "IGMP Join<br/>224.5.23.2:10006" --> Net["Switch / Router<br/>duplicates stream"]
+    Vision["Vision Processor"] -- "SSL_WrapperPacket<br/>UDP multicast, continuous, no ack" --> Net
+    Net -- "SSL_WrapperPacket" --> Team
+
+    classDef purple fill:#faf5ff,stroke:#9333ea,color:#581c87;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    classDef gray fill:#f1f5f9,stroke:#64748b,color:#1e293b;
+    class Team purple;
+    class Vision cyan;
+    class Net gray;

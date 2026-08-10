@@ -36,3 +36,21 @@
 .two-col-diagram-grid .mermaid-container {
   width: 100%;
 }
+
+/* For diagrams rendered with useMaxWidth: false (native size instead of
+   shrink-to-fit-column) — scroll instead of overflowing the page if it's
+   wider than the column. */
+.wide-mermaid pre.mermaid,
+.wide-mermaid .mermaid-container {
+  overflow-x: auto;
+}
+
+/* Scale the whole rendered diagram up, text included. Mermaid's own
+   actorFontSize/messageFontSize/noteFontSize sequence config keys don't
+   reach the rendered <text> elements in the pinned mermaid version — they
+   stay hardcoded at 16px regardless. `zoom` (not `transform: scale`)
+   correctly reflows the layout box, so it doesn't overlap the content
+   below it. */
+.wide-mermaid svg {
+  zoom: 2;
+}

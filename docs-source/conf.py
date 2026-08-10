@@ -71,6 +71,7 @@ drawio_disable_gpu = True
 DUAL_THEME_DIAGRAMS = [
     "field/network/diagrams/ssl_field_network_fanout_truss.drawio",
     "field/network/diagrams/ssl_field_network_fanout_direct.drawio",
+    "protocol/diagrams/ssl_field_network_fanout_truss_vision_highlight.drawio",
 ]
 
 
@@ -182,3 +183,12 @@ linkcheck_ignore = [
     # Intel Core i7-7567U spec sheet — verified 2026-08-09
     r"^https://www\.intel\.com/content/www/us/en/products/sku/97541/intel-core-i77567u-processor-4m-cache-up-to-4-00-ghz/specifications\.html$",
 ]
+
+# The docs link to many individual files in github.com/RoboCup-SSL/ssl-protocol-defs
+# (one per proto). Anonymous requests to github.com get secondary-rate-limited fast,
+# and linkcheck's default backoff (linkcheck_rate_limit_timeout=300s) means a single
+# rate-limited host can stall the whole linkcheck run for many minutes per retry,
+# looking like a hang rather than a check failure. Fail fast instead so a
+# rate-limited link shows up as a normal report line — re-run later once the limit
+# resets, or authenticate (linkcheck_auth) if this becomes a frequent CI problem.
+linkcheck_rate_limit_timeout = 15.0
