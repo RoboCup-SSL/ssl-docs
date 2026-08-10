@@ -12,21 +12,12 @@ common to the league as a whole.
 
 ## Motivation
 
-All SSL teams are required to interact with shared field software in order to play a match. This includes
-[vision](https://github.com/TIGERs-Mannheim/vision-processor) (robot and ball positions) and
-[game controller](https://github.com/robocup-ssl/ssl-game-controller) (game state). There are also a variety of other
-league tools that need to establish communication links, some of which are helpful for teams like autoref. This raises a
-key engineering challenge: standardizing the communication so that dozens of teams and tools can all show up and expect
-to communicate correctly.
-
-The SSL uses [Protobuf](https://protobuf.dev/) to standardize the tool data formats. Protobuf defines an interface
-description language, and the league creates packet definitions for each tool using this interface language. These
-packet definitions are defined here. A single source of truth for packet definitions provides clarity to the standard,
-and helps avoid diverging versions and licensing incompatibility.
+This repository serves as a community maintained reference for the SSL. We are seeking to migrate any remaining
+technical information from the Small Size League website so it can be openly maintained.
 
 ```{toctree}
 ---
-maxdepth: 0
+maxdepth: 2
 caption: Contents
 ---
 field
