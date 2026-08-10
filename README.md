@@ -4,7 +4,6 @@
 [![Build and deploy docs](https://github.com/RoboCup-SSL/ssl-docs/actions/workflows/docs.yml/badge.svg)](https://github.com/RoboCup-SSL/ssl-docs/actions/workflows/docs.yml)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 
-
 See the [Contributing Guide](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md)!
 
 RoboCup Small Size League docs. [Sphinx](https://www.sphinx-doc.org/) + [MyST](https://myst-parser.readthedocs.io/),
@@ -84,10 +83,10 @@ scripts/diff-versions.sh v1.0.0 main rules.md
 
 ## External Links Manual Checks
 
-If a website blocks bots, then the external links Ci check will fail. You can add these links to `linkcheck_ignore` in 
-`conf.py`. Periodically, anyone can run `./scripts/reverify-ignored-links.sh` which will find a browser and open all
-the ignored links to be checked manually. This usually passes the cloudflare bot check. Currently no clear way to do
-this in CI.
+If a website blocks bots, then the external links Ci check will fail. You can add these links to `linkcheck_ignore` in
+`conf.py`. Periodically, anyone can run `./scripts/reverify-ignored-links.sh` which will find a browser and open all the
+ignored links to be checked manually. This usually passes the cloudflare bot check. Currently no clear way to do this in
+CI.
 
 ## License
 
