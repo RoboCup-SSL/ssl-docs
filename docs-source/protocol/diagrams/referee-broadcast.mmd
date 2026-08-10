@@ -1,0 +1,17 @@
+---
+config:
+  layout: elk
+  elk:
+    nodePlacementStrategy: NETWORK_SIMPLEX
+---
+flowchart TD
+    Team["Team Client<br/>IGMP join only"] -- "IGMP Join<br/>224.5.23.1:10003" --> Net["Switch / Router<br/>duplicates stream"]
+    GC["Game Controller"] -- "Referee<br/>UDP multicast, continuous, no ack" --> Net
+    Net -- "Referee" --> Team
+
+    classDef purple fill:#faf5ff,stroke:#9333ea,color:#581c87;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    classDef gray fill:#f1f5f9,stroke:#64748b,color:#1e293b;
+    class Team purple;
+    class GC cyan;
+    class Net gray;

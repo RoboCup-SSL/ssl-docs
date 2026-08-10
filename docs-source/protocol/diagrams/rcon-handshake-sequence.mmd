@@ -1,0 +1,15 @@
+%%{init: {"sequence": {"useMaxWidth": false, "actorMargin": 220, "messageMargin": 40}}}%%
+sequenceDiagram
+    participant Team as Team Client
+    participant GC as Game Controller
+
+    Team->>GC: TCP connect :10008 (or :10108 for TLS)
+    Team->>GC: TeamRegistration (team_name[, signature])
+    GC->>Team: ControllerReply (status_code=OK, next_token)
+    Note over Team,GC: Connection stays open — one registration, then repeated exchanges.<br/>next_token must be echoed back in the next Signature if using secure comms.
+
+    Team->>GC: TeamToController (ping)
+    GC->>Team: ControllerToTeam (controller_reply)
+
+    Team->>GC: TeamToController (desired_keeper)
+    GC->>Team: ControllerToTeam (controller_reply)

@@ -55,8 +55,10 @@ definitions are available in the [league protobuf repository](https://github.com
 definition file there are needed to decode the raw data. The image below shows the hierarchy of the data structure send
 in the data stream.
 
+````{container} no-letterbox-mermaid
 ```{mermaid} diagrams/message-hierarchy.mmd
 ```
+````
 
 There are two top level data structures, SSL_DetectionFrame and SSL_GeometryData. These correspond to the packet types
 seen in the join sequence diagram above. SSL_DetectionFrame is the meat of the data stream, and as seen in the diagram,
@@ -126,8 +128,10 @@ as teams may disagree on the approach to handle detections at boundaries. For ex
 field, all four cameras are likely to see the ball and robots at the center and you will receive 4 detections for each
 entity. This is visualized in the graphic below.
 
+````{container} no-letterbox-mermaid
 ```{mermaid} diagrams/multi-camera-merge.mmd
 ```
+````
 
 There is no single agreed upon way to resolve these overlaps. An additional challenge is filtering position in velocity.
 Teams will see noise in this derivative without filtering. Again, there are many approaches to solve this. The committee

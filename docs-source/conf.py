@@ -72,6 +72,7 @@ DUAL_THEME_DIAGRAMS = [
     "field/network/diagrams/ssl_field_network_fanout_truss.drawio",
     "field/network/diagrams/ssl_field_network_fanout_direct.drawio",
     "protocol/diagrams/ssl_field_network_fanout_truss_vision_highlight.drawio",
+    "protocol/diagrams/ssl_field_network_fanout_truss_gc_highlight.drawio",
 ]
 
 
