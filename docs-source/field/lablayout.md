@@ -10,32 +10,29 @@ all of the pieces at play. This minimal setup condenses that functionality.
 
 A diagram is provided below. Scale is approximately relative to the field.
 
-**Picture coming soon!**
-
-![Full Competition Field Diagram](images/comp-field-full.png)
-
-There's a lot to dissect here, some abbreviations:
-
-- FC - Field Computer
-- TC - Team Computer
-- NE - Networking Equipment
+![setup_lab_png](images/setup_lab.drawio.png)
+![setup_lab](diagrams/setup_lab.drawio)
 
 ## Placement and Layout Guidance
 
 This is mostly a factor of what works for your team and space. You should checkout the section on
 [Carpet and Materials](carpet.md) and [Cameras](cameras.md). There's some advice there if you floor is not level or you
 have an unusual ceiling. **Remember, a practice field does not need to be standard dimensions or aspect ratio!** You
-seek to maximize the field size given your space and cost constraints. The vision software can be configured for
-arbitrary dimensions.
+seek to maximize the field size given your space and cost constraints. The vision software can be configured for arbitrary dimensions.
 
 ## Function of Components
 
 In a typical lab setup, lots of equipment does double duty.
 
-### Networking Equipment
+### Field Network
 
-The networking equipment is the small cyan box labeled "NE" on the diagram. This will connect the team computers
-together, provide networking services, and also provide an internet uplink. This is often preferred over wireless.
+This connects the [Field Computer](#field-computer) and [Team Computer](#team-computer), 
+transmitting SSL-software-related data, such as Game Controller and Vision messages. Having this equipment is recommended, as it replicates 
+the competition setup, where your computer attaches directly to the Field Network switch.
+
+This connection also typically provides Internet access, simplifying code deployment, 
+troubleshooting, and development. Without Internet access, however, the Field Computer 
+is unaffected and continues to operate normally.    
 
 ### Field Computer
 
