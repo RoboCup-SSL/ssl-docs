@@ -10,8 +10,13 @@ noted.
 
 A full diagram is provided below. Scale is approximately relative to the field, but omitted to allow for local variance.
 
-![Competition Draw.ioDiagram](diagrams/setup_field.drawio)
-![Competition png](images/setup_field.drawio.png)
+{image} diagrams/setup_field.light.svg
+:class: only-light
+:alt: Competition Setup Diagram
+
+{image} diagrams/setup_field.dark.svg
+:class: only-dark
+:alt: Competition Setup Diagram
 
 The colors implies the following meaning:
 
@@ -35,46 +40,58 @@ malfunction so this separation is key. A physical barrier is recommended between
 
 ### Tables
 
-Tables should be no smaller than ~1m x 2m (3 x 6ft). please refer to [Top Level Diagram](#top-level-diagram) for further position reference. 
+Tables should be no smaller than ~1m x 2m (3 x 6ft). please refer to [Top Level Diagram](#top-level-diagram) for further
+position reference.
 
-Since we might not get the same amount of tables per event, and the position of the fields will be different, the following outlines the tables function and each position relative promximity. 
-
+Since we might not get the same amount of tables per event, and the position of the fields will be different, the
+following outlines the tables function and each position relative promximity.
 
 #### Spaces between Tables and Field
 
-For ease of access into the field for Robot Handlers, and Referees, a one-person's gap must be maintiained between the tables and the field. 
+For ease of access into the field for Robot Handlers, and Referees, a one-person's gap must be maintained between the
+tables and the field.
 
-The overall position of tables may be adjusted strategicly. This is done so to ensure a clear line of sight between spectators and audiences to the field at all times.  
+The overall position of tables may be adjusted strategicly. This is done so to ensure a clear line of sight between
+spectators and audiences to the field at all times.
 
-As there will be ethernet (networking) cables provided to each table, care should be taken to perform proper cable management to ensure that the cables are secure and far from unwanted attention such as participants or workers stepping or tripping on them. The positioning of cables must be placed out of the audiance and spectators line of sight at all times.
+As there will be ethernet (networking) cables provided to each table, care should be taken to perform proper cable
+management to ensure that the cables are secure and far from unwanted attention such as participants or workers stepping
+or tripping on them. The positioning of cables must be placed out of the audience and spectators line of sight at all
+times.
 
 #### Vision and Game Controller Computer Tables
 
-The [Vision Computer](#vision-computer) and [Game Controller Computer](#game-controller-computer) each should occupy half of a table separately and located to the left and right of the mid-field line. 
+The [Vision Computer](#vision-computer) and [Game Controller Computer](#game-controller-computer) each should occupy
+half of a table separately and located to the left and right of the mid-field line.
 
 #### Team Tables
 
 Each team should have at least 1 full table next to the field during their match or registered practice slot.
 
-Each table should be provided with one power outlet and one networking cable. It is the team's responsibility to bring a power extension board or additional netowrking equipment  if they require more than one connection during competition and practices.
+Each table should be provided with one power outlet and one networking cable. It is the team's responsibility to bring a
+power extension board or additional netowrking equipment if they require more than one connection during competition and
+practices.
 
->Please note that no permanent dedicated field tables per teams are guaranteed; teams are expected to share these tables between matches and practices. 
+> Please note that no permanent dedicated field tables per teams are guaranteed; teams are expected to share these
+> tables between matches and practices.
 
 ##### remote controllers
 
-There are 2 remote controllers during comeptition, one for each team, each will be positioned close to the team setup. The positioning of remote controllers affect the Robot Handler is position during the game. 
+There are 2 remote controllers during comeptition, one for each team, each will be positioned close to the team setup.
+The positioning of remote controllers affect the Robot Handler is position during the game.
 
-Ideally, the position of the remote controllers should allow a direct line of sight for the person standing next to it with the Referee and Game Controller Operator. This is preferred as netowrking issues may arise or controller being faulty, and would be easier for the Robot Handler to report the problem to the Referee. 
+Ideally, the position of the remote controllers should allow a direct line of sight for the person standing next to it
+with the Referee and Game Controller Operator. This is preferred as netowrking issues may arise or controller being
+faulty, and would be easier for the Robot Handler to report the problem to the Referee.
 
-Robot handlers are encouraged to check with Referee and Game Controller Operator during the game to voice out their concern if the remote controller feels unresponsive. For example a challenge flag has been raised but there was not stopping of the game.  
-
-
-
+Robot handlers are encouraged to check with Referee and Game Controller Operator during the game to voice out their
+concern if the remote controller feels unresponsive. For example a challenge flag has been raised but there was not
+stopping of the game.
 
 ### Event Equipment
 
-The [Vision Computer](#vision-computer) and [Game Controller Computer](#game-controller-computer) should be placed close to each other, the midfield line, and the referee. This
-has several advantages:
+The [Vision Computer](#vision-computer) and [Game Controller Computer](#game-controller-computer) should be placed close
+to each other, the midfield line, and the referee. This has several advantages:
 
 - The Referee and Game Controller Operator(GCO) can communicate easily
 - The Vision Expert(VE) and GCO can communicate as necessary
@@ -98,11 +115,16 @@ assistant referee who may be attempting to communicate both across the field and
 Only the function of components, not people are described here. For the purpose of specific human roles, consult the
 rules.
 
-### Field Netowrk
+### Field Network
 
-The Field Network is a dedicated network that connects all the devices such as [vision computer](#vision-computer), [Game Controller Computer](#game-controller-computer), [Team Computer](#team-computer), [ssl-status board (optional)](#status-board-recommended-optional), and [streaming computer (Optional)](#streaming-computer-optional). This equipement is usually a managed networking switch, located on the ground near the centre of the field, see [image](#competition-field) for more information. 
+The Field Network is a dedicated network that connects all the devices such as [vision computer](#vision-computer),
+[Game Controller Computer](#game-controller-computer), [Team Computer](#team-computer),
+[ssl-status board (optional)](#status-board-recommended-optional), and
+[streaming computer (Optional)](#streaming-computer-optional). This equipement is usually a managed networking switch,
+located on the ground near the centre of the field, see [image](#competition-field) for more information.
 
-This Field Network is responsible for providing essential network services See the [Network and Compute](network/compute.md) for physical network details.
+This Field Network is responsible for providing essential network services See the
+[Network and Compute](network/compute.md) for physical network details.
 
 ### Cameras
 
@@ -114,20 +136,25 @@ More information is present in the [Cameras and Lenses](cameras.md) page.
 
 ### Vision Computer
 
-The vision computer is responsible for providing robot and ball position data via the network. League software processes camera data and field geometry to produce accurate positions. 
+The vision computer is responsible for providing robot and ball position data via the network. League software processes
+camera data and field geometry to produce accurate positions.
 
-This computer requires a connection to the field cameras directly, or the additional computer that connects to the Field Cameras.
+This computer requires a connection to the field cameras directly, or the additional computer that connects to the Field
+Cameras.
 
-Fields may have different camera combinations. See the [Vision Protocol](/protocol/vision.md) page for the league software that fills this role.
+Fields may have different camera combinations. See the [Vision Protocol](/protocol/vision.md) page for the league
+software that fills this role.
 
 ### Game Controller Computer
 
-The Game Controller Computer hosts [ssl-game-controller] that also publishes information to [ssl-status-boards](#status-board-recommended-optional). This software holds crucial information on game state, events, and team informations. 
+The Game Controller Computer hosts [ssl-game-controller] that also publishes information to
+[ssl-status-boards](#status-board-recommended-optional). This software holds crucial information on game state, events,
+and team information.
 
-Similar to [Vision Computer](#vision-computer), the Game Controller Computer communicates the information via the [Field Netowrk](#field-netowrk). 
+Similar to [Vision Computer](#vision-computer), the Game Controller Computer communicates the information via the
+[Field Network](#field-network).
 
-
-Due to the properties of [ssl-game-controller]()It also accepts requests from the teams via the remote control or
+Due to the properties of [ssl-game-controller](<>)It also accepts requests from the teams via the remote control or
 optionally the team AI software. See the [Referee Protocol](/protocol/referee.md) page for the league software that
 fills this role.
 
@@ -142,9 +169,11 @@ Often times networking contractors at large events are unable to accommodate the
 
 ### Team Computer
 
-Teams are responsible for bringing their own computer to run their software and AI. Teams should expect only one network and one power connection at their table. 
+Teams are responsible for bringing their own computer to run their software and AI. Teams should expect only one network
+and one power connection at their table.
 
-Teams are encoraged to bring additional equipment to make their connections, communications to robot, troubleshooting and debuging work.  
+Teams are encouraged to bring additional equipment to make their connections, communications to robot, troubleshooting
+and debugging work.
 
 ### Status Board (Recommended, Optional)
 

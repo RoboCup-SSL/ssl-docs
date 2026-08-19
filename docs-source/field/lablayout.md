@@ -10,15 +10,21 @@ all of the pieces at play. This minimal setup condenses that functionality.
 
 A diagram is provided below. Scale is approximately relative to the field.
 
-![setup_lab_png](images/setup_lab.drawio.png)
-![setup_lab](diagrams/setup_lab.drawio)
+{image} diagrams/setup_lab.light.svg
+:class: only-light
+:alt: Competition Setup Diagram
+
+{image} diagrams/setup_lab.dark.svg
+:class: only-dark
+:alt: Competition Setup Diagram
 
 ## Placement and Layout Guidance
 
 This is mostly a factor of what works for your team and space. You should checkout the section on
 [Carpet and Materials](carpet.md) and [Cameras](cameras.md). There's some advice there if you floor is not level or you
 have an unusual ceiling. **Remember, a practice field does not need to be standard dimensions or aspect ratio!** You
-seek to maximize the field size given your space and cost constraints. The vision software can be configured for arbitrary dimensions.
+seek to maximize the field size given your space and cost constraints. The vision software can be configured for
+arbitrary dimensions.
 
 ## Function of Components
 
@@ -26,13 +32,12 @@ In a typical lab setup, lots of equipment does double duty.
 
 ### Field Network
 
-This connects the [Field Computer](#field-computer) and [Team Computer](#team-computer), 
-transmitting SSL-software-related data, such as Game Controller and Vision messages. Having this equipment is recommended, as it replicates 
-the competition setup, where your computer attaches directly to the Field Network switch.
+This connects the [Field Computer](#field-computer) and [Team Computer](#team-computer), transmitting
+SSL-software-related data, such as Game Controller and Vision messages. Having this equipment is recommended, as it
+replicates the competition setup, where your computer attaches directly to the Field Network switch.
 
-This connection also typically provides Internet access, simplifying code deployment, 
-troubleshooting, and development. Without Internet access, however, the Field Computer 
-is unaffected and continues to operate normally.    
+This connection also typically provides Internet access, simplifying code deployment, troubleshooting, and development.
+Without Internet access, however, the Field Computer is unaffected and continues to operate normally.
 
 ### Field Computer
 
