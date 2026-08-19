@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="q5rb6VhsULtoeuceKPI3">
-    <mxGraphModel dx="974" dy="522" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="971" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -62,7 +62,7 @@
           <mxGeometry height="140.03459610027846" width="314.95883126596743" x="150.00424197918665" y="349.9962766945217" as="geometry" />
         </mxCell>
         <mxCell id="6gTN4eDsF1PFmWk0P7E4-164" connectable="0" parent="0RVpZoDwl9ISIdWLVZBa-11" style="group" value="" vertex="1">
-          <mxGeometry height="45.290000000000006" width="130.00000000000003" x="48.88639314361514" y="92.4245961002785" as="geometry" />
+          <mxGeometry height="45.290000000000006" width="130.00000000000003" x="49.72639314361514" y="81.5545961002785" as="geometry" />
         </mxCell>
         <mxCell id="6gTN4eDsF1PFmWk0P7E4-145" parent="6gTN4eDsF1PFmWk0P7E4-164" style="shape=actor;whiteSpace=wrap;html=1;fillColor=light-dark(#13A67F,#A68100);fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="" vertex="1">
           <mxGeometry height="44.66109563602599" width="35.94165566628499" x="47.026517694094565" as="geometry" />
@@ -73,14 +73,14 @@
         <mxCell id="BbmOLUhOjkZ3qZIhqfJA-8" parent="0RVpZoDwl9ISIdWLVZBa-11" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#A68100,#A68100);strokeColor=#B09500;fontColor=#000000;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="" vertex="1">
           <mxGeometry height="78.74" width="157.48" as="geometry" />
         </mxCell>
-        <mxCell id="BbmOLUhOjkZ3qZIhqfJA-5" parent="0RVpZoDwl9ISIdWLVZBa-11" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.pc;network2IconYOffset=-0.0593;network2IconW=0.9999;network2IconH=0.7096;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="SSL Software" vertex="1">
-          <mxGeometry height="48.1" width="67.78" x="79.9947260909935" y="5.149999999999995" as="geometry" />
+        <mxCell id="BbmOLUhOjkZ3qZIhqfJA-5" parent="0RVpZoDwl9ISIdWLVZBa-11" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.pc;network2IconYOffset=-0.0593;network2IconW=0.9999;network2IconH=0.7096;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Field Computer" vertex="1">
+          <mxGeometry height="44.86" width="63.21" x="72" y="5.15" as="geometry" />
         </mxCell>
         <mxCell id="6gTN4eDsF1PFmWk0P7E4-153" parent="0RVpZoDwl9ISIdWLVZBa-11" style="image;html=1;image=img/lib/clip_art/networking/Switch_128x128.png;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Field&amp;nbsp;&lt;div&gt;Network&lt;/div&gt;" vertex="1">
           <mxGeometry height="31.60631383472609" width="41.91272051996287" x="7.9518941504179566" y="11.684187558031567" as="geometry" />
         </mxCell>
         <mxCell id="0RVpZoDwl9ISIdWLVZBa-8" connectable="0" parent="0RVpZoDwl9ISIdWLVZBa-11" style="group" value="" vertex="1">
-          <mxGeometry height="48.10000000000002" width="63.210000000000036" x="179.99891238460066" y="89.61715877437334" as="geometry" />
+          <mxGeometry height="48.10000000000002" width="63.210000000000036" x="179.72891238460065" y="78.74715877437333" as="geometry" />
         </mxCell>
         <mxCell id="6gTN4eDsF1PFmWk0P7E4-131" parent="0RVpZoDwl9ISIdWLVZBa-8" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#FF9046;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="" vertex="1">
           <mxGeometry height="48.09656453110492" width="41.22583808965958" x="10.990351582187941" as="geometry" />
@@ -91,7 +91,7 @@
         <mxCell id="6gTN4eDsF1PFmWk0P7E4-4" parent="0RVpZoDwl9ISIdWLVZBa-11" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#A68100,#A68100);strokeColor=#B09500;fontColor=#000000;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="" vertex="1">
           <mxGeometry height="78.74" width="157.48" x="157.47883126596741" y="0.004531104921056794" as="geometry" />
         </mxCell>
-        <mxCell id="6gTN4eDsF1PFmWk0P7E4-6" parent="0RVpZoDwl9ISIdWLVZBa-11" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.pc;network2IconYOffset=-0.0593;network2IconW=0.9999;network2IconH=0.7096;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Team Software" vertex="1">
+        <mxCell id="6gTN4eDsF1PFmWk0P7E4-6" parent="0RVpZoDwl9ISIdWLVZBa-11" style="shape=mxgraph.networks2.icon;aspect=fixed;fillColor=#EDEDED;strokeColor=#000000;gradientColor=#5B6163;network2IconShadow=1;network2bgFillColor=none;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;network2Icon=mxgraph.networks2.pc;network2IconYOffset=-0.0593;network2IconW=0.9999;network2IconH=0.7096;fontStyle=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="Team Computer" vertex="1">
           <mxGeometry height="44.66" width="62.94" x="179.9988312659674" y="5.15453110492092" as="geometry" />
         </mxCell>
       </root>
