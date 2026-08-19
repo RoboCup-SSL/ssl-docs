@@ -10,15 +10,13 @@ all of the pieces at play. This minimal setup condenses that functionality.
 
 A diagram is provided below. Scale is approximately relative to the field.
 
-**Picture coming soon!**
+{image} diagrams/setup_lab.light.svg
+:class: only-light
+:alt: Competition Setup Diagram
 
-![Full Competition Field Diagram](images/comp-field-full.png)
-
-There's a lot to dissect here, some abbreviations:
-
-- FC - Field Computer
-- TC - Team Computer
-- NE - Networking Equipment
+{image} diagrams/setup_lab.dark.svg
+:class: only-dark
+:alt: Competition Setup Diagram
 
 ## Placement and Layout Guidance
 
@@ -32,10 +30,14 @@ arbitrary dimensions.
 
 In a typical lab setup, lots of equipment does double duty.
 
-### Networking Equipment
+### Field Network
 
-The networking equipment is the small cyan box labeled "NE" on the diagram. This will connect the team computers
-together, provide networking services, and also provide an internet uplink. This is often preferred over wireless.
+This connects the [Field Computer](#field-computer) and [Team Computer](#team-computer), transmitting
+SSL-software-related data, such as Game Controller and Vision messages. Having this equipment is recommended, as it
+replicates the competition setup, where your computer attaches directly to the Field Network switch.
+
+This connection also typically provides Internet access, simplifying code deployment, troubleshooting, and development.
+Without Internet access, however, the Field Computer is unaffected and continues to operate normally.
 
 ### Field Computer
 
