@@ -71,6 +71,8 @@ drawio_disable_gpu = True
 DUAL_THEME_DIAGRAMS = [
     "field/network/diagrams/ssl_field_network_fanout_truss.drawio",
     "field/network/diagrams/ssl_field_network_fanout_direct.drawio",
+    "field/diagrams/setup_field.drawio",
+    "field/diagrams/setup_lab.drawio",
 ]
 
 
