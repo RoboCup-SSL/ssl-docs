@@ -57,20 +57,20 @@ Below is the summary table of protocol addressing and ports. The GC address can 
 multicast group and reading the [source address](https://en.wikipedia.org/wiki/IPv4#Source_address) field of the IP
 layer, rather than knowing it statically.
 
-| Protocol                 | Protobuf                                                                                                                         | Type          | Address    | Port  |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------- | ----- |
-| SSL-Game-Controller (GC) | [Referee](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_referee_message.proto)                      | UDP Multicast | 224.5.23.1 | 10003 |
-| SSL-Vision Detections    | [SSL_WrapperPacket](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/vision/ssl_vision_wrapper.proto)            | UDP Multicast | 224.5.23.2 | 10006 |
-| AutoRef -> GC            | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_autoref.proto)                         | TCP           | GC         | 10007 |
-| AutoRef -> GC            | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_autoref.proto)                         | TCP + SSL     | GC         | 10107 |
-| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_team.proto)                               | TCP           | GC         | 10008 |
-| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_team.proto)                               | TCP + SSL     | GC         | 10108 |
-| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_remotecontrol.proto)            | TCP           | GC         | 10011 |
-| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_remotecontrol.proto)            | TCP + SSL     | GC         | 10111 |
-| SSL-Vision-Tracker       | [TrackerWrapperPacket](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/vision/ssl_vision_wrapper_tracked.proto) | UDP Multicast | 224.5.23.2 | 10010 |
-| Simulation Control       | [SimulationControl](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/simulation/ssl_simulation_control.proto)    | UDP           | Simulator  | 10300 |
-| Robot Control Blue       | [RobotControl](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/simulation/ssl_simulation_robot_control.proto)   | UDP           | Simulator  | 10301 |
-| Robot Control Yellow     | [RobotControl](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/simulation/ssl_simulation_robot_control.proto)   | UDP           | Simulator  | 10302 |
+| Protocol                 | Protobuf                                                                                                                          | Type          | Address    | Port  |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------- | ----- |
+| SSL-Game-Controller (GC) | [Referee](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_referee_message.proto)           | UDP Multicast | 224.5.23.1 | 10003 |
+| SSL-Vision Detections    | [SSL_WrapperPacket](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/vision/ssl_vision_wrapper.proto)             | UDP Multicast | 224.5.23.2 | 10006 |
+| AutoRef -> GC            | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_autoref.proto)              | TCP           | GC         | 10007 |
+| AutoRef -> GC            | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_autoref.proto)              | TCP + SSL     | GC         | 10107 |
+| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_team.proto)                    | TCP           | GC         | 10008 |
+| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_team.proto)                    | TCP + SSL     | GC         | 10108 |
+| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_remotecontrol.proto) | TCP           | GC         | 10011 |
+| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_remotecontrol.proto) | TCP + SSL     | GC         | 10111 |
+| SSL-Vision-Tracker       | [TrackerWrapperPacket](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/vision/ssl_vision_wrapper_tracked.proto)  | UDP Multicast | 224.5.23.2 | 10010 |
+| Simulation Control       | [SimulationControl](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/simulation/ssl_simulation_control.proto)     | UDP           | Simulator  | 10300 |
+| Robot Control Blue       | [RobotControl](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/simulation/ssl_simulation_robot_control.proto)    | UDP           | Simulator  | 10301 |
+| Robot Control Yellow     | [RobotControl](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/simulation/ssl_simulation_robot_control.proto)    | UDP           | Simulator  | 10302 |
 
 ## Additional Resources
 

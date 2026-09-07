@@ -6,7 +6,7 @@ This page describes the layers that deliver and decode the vision data stream fr
 
 There are two pieces of league maintained software that interpret camera data to produce a vision data stream:
 
-- (Recommended) [Vision Processor](https://github.com/TIGERs-Mannheim/vision-processor)
+- (Recommended) [Vision Processor](https://github.com/RoboCup-SSL/ssl-vision-processor)
 - (Legacy) [SSL Vision](https://github.com/RoboCup-SSL/ssl-vision)
 
 If you're actively trying to connect to a field, you'll need to make sure at least one is running and has a valid field

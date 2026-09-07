@@ -12,10 +12,10 @@ The following table contains connection information for automatic referee (autoR
 registration/signing flow these channels use, including
 [how to find the Game Controller's IP](./gamecontroller.md#remote-control-rcon-channels-optional) without guessing it.
 
-| Protocol      | Protobuf                                                                                                 | Type      | Address | Port  |
-| ------------- | -------------------------------------------------------------------------------------------------------- | --------- | ------- | ----- |
-| AutoRef -> GC | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_autoref.proto) | TCP       | GC      | 10007 |
-| AutoRef -> GC | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_autoref.proto) | TCP + SSL | GC      | 10107 |
+| Protocol      | Protobuf                                                                                                             | Type      | Address | Port  |
+| ------------- | -------------------------------------------------------------------------------------------------------------------- | --------- | ------- | ----- |
+| AutoRef -> GC | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_autoref.proto) | TCP       | GC      | 10007 |
+| AutoRef -> GC | [AutoRef](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_autoref.proto) | TCP + SSL | GC      | 10107 |
 
 ## Message Format
 

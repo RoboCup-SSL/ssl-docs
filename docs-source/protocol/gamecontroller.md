@@ -48,8 +48,8 @@ opens a TCP connection to the Game Controller and registers. Again, many of thes
 robot handler and physical remote control provided by the event organizer/field. There are three separate rcon channels,
 each on its own port: one for teams, one for autoRefs, and one for physical remote controls. Registration and signing
 are described in
-[ssl_gc_rcon.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon.proto); signatures
-are optional and only needed for secure/verified communication.
+[ssl_gc_rcon.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon.proto);
+signatures are optional and only needed for secure/verified communication.
 
 Unlike the broadcast channel, opening a TCP connection requires knowing the Game Controller's actual IP. **You don't
 need to guess this or hardcode a hostname** — read it off the
@@ -71,13 +71,13 @@ The following table contains connection information for the broadcast channel an
 AutoRef connections use the same rcon flow but are documented on the [referee protocol](./referee.md#connections-table)
 page instead, alongside the rest of the autoRef-specific content.
 
-| Protocol                 | Protobuf                                                                                                              | Type          | Address    | Port  |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------- | ------------- | ---------- | ----- |
-| SSL-Game-Controller (GC) | [Referee](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_referee_message.proto)           | UDP Multicast | 224.5.23.1 | 10003 |
-| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_team.proto)                    | TCP           | GC         | 10008 |
-| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_team.proto)                    | TCP + SSL     | GC         | 10108 |
-| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_remotecontrol.proto) | TCP           | GC         | 10011 |
-| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_remotecontrol.proto) | TCP + SSL     | GC         | 10111 |
+| Protocol                 | Protobuf                                                                                                                          | Type          | Address    | Port  |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------- | ----- |
+| SSL-Game-Controller (GC) | [Referee](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_referee_message.proto)           | UDP Multicast | 224.5.23.1 | 10003 |
+| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_team.proto)                    | TCP           | GC         | 10008 |
+| Team -> GC               | [Team](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_team.proto)                    | TCP + SSL     | GC         | 10108 |
+| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_remotecontrol.proto) | TCP           | GC         | 10011 |
+| Remote Control -> GC     | [Remote Control](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_remotecontrol.proto) | TCP + SSL     | GC         | 10111 |
 
 ## Message Format
 
@@ -101,15 +101,15 @@ channels. It's recommended you include the entire
 [ssl-protocol-defs repository](https://github.com/RoboCup-SSL/ssl-protocol-defs) as a submodule in your code, rather
 than copying the files directly.
 
-| Message                                                                                                 | Proto File                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Referee, Referee.TeamInfo, Referee.Point                                                                | [ssl_gc_referee_message.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_referee_message.proto)       |
-| GameEvent, GameEventProposalGroup                                                                       | [ssl_gc_game_event.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_game_event.proto)                 |
-| ControllerReply, Signature                                                                              | [ssl_gc_rcon.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon.proto)                             |
-| TeamRegistration, TeamToController, ControllerToTeam                                                    | [ssl_gc_rcon_team.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_team.proto)                   |
-| AutoRefRegistration, AutoRefToController, ControllerToAutoRef                                           | [ssl_gc_rcon_autoref.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_autoref.proto)             |
-| RemoteControlRegistration, RemoteControlToController, ControllerToRemoteControl, RemoteControlTeamState | [ssl_gc_rcon_remotecontrol.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_rcon_remotecontrol.proto) |
-| Team, RobotId, Division                                                                                 | [ssl_gc_common.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gc/ssl_gc_common.proto)                         |
+| Message                                                                                                 | Proto File                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Referee, Referee.TeamInfo, Referee.Point                                                                | [ssl_gc_referee_message.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_referee_message.proto)       |
+| GameEvent, GameEventProposalGroup                                                                       | [ssl_gc_game_event.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_game_event.proto)                 |
+| ControllerReply, Signature                                                                              | [ssl_gc_rcon.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon.proto)                             |
+| TeamRegistration, TeamToController, ControllerToTeam                                                    | [ssl_gc_rcon_team.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_team.proto)                   |
+| AutoRefRegistration, AutoRefToController, ControllerToAutoRef                                           | [ssl_gc_rcon_autoref.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_autoref.proto)             |
+| RemoteControlRegistration, RemoteControlToController, ControllerToRemoteControl, RemoteControlTeamState | [ssl_gc_rcon_remotecontrol.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_rcon_remotecontrol.proto) |
+| Team, RobotId, Division                                                                                 | [ssl_gc_common.proto](https://github.com/RoboCup-SSL/ssl-protocol-defs/blob/main/proto/gamecontroller/ssl_gc_common.proto)                         |
 
 ## Team Sides
 
