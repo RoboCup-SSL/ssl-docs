@@ -1,0 +1,18 @@
+%%{init: {"sequence": {"useMaxWidth": false, "actorMargin": 220, "messageMargin": 40}}}%%
+sequenceDiagram
+    participant Team as Team Client
+    participant Net as Switch / Router<br/>(multicast group 224.5.23.1:10003)
+    participant GC as Game Controller
+
+    Team->>Net: IGMP Join 224.5.23.1:10003
+    Note over Team,GC: No handshake — Team is now another multicast receiver
+
+    GC->>Net: Referee (stage, command, scores)
+    Net->>Team: Referee (stage, command, scores)
+
+    GC->>Net: Referee
+    Net--xTeam: Referee — dropped
+    Note over Team: No retransmission — team just waits for the next packet
+
+    GC->>Net: Referee
+    Net->>Team: Referee

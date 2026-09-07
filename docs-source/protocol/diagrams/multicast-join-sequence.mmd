@@ -1,0 +1,29 @@
+%%{init: {"sequence": {"useMaxWidth": false, "actorMargin": 220, "messageMargin": 40}}}%%
+sequenceDiagram
+    participant Team as Team Client
+    participant Net as Switch / Router<br/>(multicast group 224.5.23.2:10006)
+    participant Vision as Vision Processor
+
+    Team->>Net: IGMP Join 224.5.23.2:10006
+    Note over Team,Vision: No handshake — Team is now another multicast receiver
+
+    Vision->>Net: SSL_WrapperPacket<br/>detection (frame 1)
+    Net->>Team: SSL_WrapperPacket<br/>detection (frame 1)
+
+    Vision->>Net: SSL_WrapperPacket<br/>detection (frame 2)
+    Net->>Team: SSL_WrapperPacket<br/>detection (frame 2)
+
+    Note over Vision,Team: Geometry publisher re-sends field geometry every 1s
+
+    Vision->>Net: SSL_WrapperPacket<br/>geometry
+    Net->>Team: SSL_WrapperPacket<br/>geometry
+
+    Vision->>Net: SSL_WrapperPacket<br/>detection (frame 3)
+    Net->>Team: SSL_WrapperPacket<br/>detection (frame 3)
+
+    Vision->>Net: SSL_WrapperPacket<br/>detection (frame 4)
+    Net--xTeam: SSL_WrapperPacket<br/>detection (frame 4) — dropped
+    Note over Team: No retransmission — team just waits for the next frame
+
+    Vision->>Net: SSL_WrapperPacket<br/>detection (frame 5)
+    Net->>Team: SSL_WrapperPacket<br/>detection (frame 5)

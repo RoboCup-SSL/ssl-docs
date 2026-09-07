@@ -1,0 +1,21 @@
+---
+config:
+  layout: elk
+  elk:
+    nodePlacementStrategy: NETWORK_SIMPLEX
+---
+flowchart LR
+    subgraph Cams["Cameras"]
+        C0["Camera 0"]
+        C1["Camera 1"]
+        CN["Camera N"]
+    end
+
+    C0 -- "SSL_DetectionFrame<br/>camera_id=0" --> Client["Team Client<br/>merge by camera_id,<br/>reconcile t_capture"]
+    C1 -- "camera_id=1" --> Client
+    CN -- "camera_id=N" --> Client
+
+    classDef amber fill:#fffbeb,stroke:#d97706,color:#78350f;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    class C0,C1,CN amber;
+    class Client cyan;

@@ -1,8 +1,13 @@
 import os
+import re
 import shutil
 import subprocess
 import time
 from pathlib import Path
+
+from sphinx.util import logging as sphinx_logging
+
+logger = sphinx_logging.getLogger(__name__)
 
 project = "RoboCup Small Size League"
 copyright = "2026, RoboCup Small Size League"
@@ -71,6 +76,8 @@ drawio_disable_gpu = True
 DUAL_THEME_DIAGRAMS = [
     "field/network/diagrams/ssl_field_network_fanout_truss.drawio",
     "field/network/diagrams/ssl_field_network_fanout_direct.drawio",
+    "protocol/diagrams/ssl_field_network_fanout_truss_vision_highlight.drawio",
+    "protocol/diagrams/ssl_field_network_fanout_truss_gc_highlight.drawio",
 ]
 
 
@@ -155,6 +162,11 @@ def setup(app):
     app.set_html_assets_policy("always")
     app.connect("builder-inited", render_dual_theme_diagrams)
 
+    if _GITHUB_TOKEN:
+        app.connect("linkcheck-process-uri", rewrite_github_url_to_api)
+    else:
+        app.connect("builder-inited", warn_github_links_skipped)
+
 
 linkcheck_user_agent = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -182,3 +194,68 @@ linkcheck_ignore = [
     # Intel Core i7-7567U spec sheet — verified 2026-08-09
     r"^https://www\.intel\.com/content/www/us/en/products/sku/97541/intel-core-i77567u-processor-4m-cache-up-to-4-00-ghz/specifications\.html$",
 ]
+
+# On a 429 without a Retry-After header, Sphinx's limit_rate() starts at a fixed
+# 60s backoff and reports the link as *broken* once a delay exceeds this timeout,
+# so anything under 60 makes the first 429 fatal with no retry.
+linkcheck_workers = 2
+linkcheck_retries = 2
+linkcheck_rate_limit_timeout = 120.0
+
+# The docs link to ~19 unique github.com URLs (one per proto, mostly). Anonymous
+# requests share a per-IP bucket CI runners are already deep into, so they 429
+# and no amount of backoff tuning makes that reliable. An authenticated
+# api.github.com run has 1000 requests/hour per repo and never comes close, so
+# GitHub links are checked via the API when a token is present and skipped
+# outright when it isn't — anonymous api.github.com is 60/hour, worse than the
+# web bucket, so there's no fallback worth having. CI always has a token
+# (issued for every event, read-only on fork PRs, which is all this needs);
+# locally, export any PAT with public-repo read or accept the skip.
+#
+# The rewrite only affects what linkcheck fetches — the URLs in the built HTML
+# are untouched — but report lines show the rewritten api.github.com URL.
+_GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+
+_GITHUB_BLOB_URL = re.compile(r"^https://github\.com/([^/]+)/([^/]+)/blob/([^/]+)/(.+)$")
+_GITHUB_REPO_URL = re.compile(r"^https://github\.com/([^/]+)/([^/?#]+?)/?$")
+
+
+def rewrite_github_url_to_api(app, uri):
+    if match := _GITHUB_BLOB_URL.match(uri):
+        owner, repo, ref, path = match.groups()
+        return f"https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={ref}"
+
+    if match := _GITHUB_REPO_URL.match(uri):
+        owner, repo = match.groups()
+        return f"https://api.github.com/repos/{owner}/{repo}"
+
+    # Releases, issues, wikis and the like have no one-to-one API equivalent
+    # worth maintaining — leave them on the web bucket.
+    return None
+
+
+def warn_github_links_skipped(app):
+    # A warning, not a note, because a silent skip reads as a pass — so the
+    # linkcheck job must not use -W, or a tokenless local run becomes an error.
+    if app.builder.name != "linkcheck":
+        return
+
+    logger.warning(
+        "GITHUB_TOKEN is not set — skipping all github.com links. Anonymous "
+        "requests are rate-limited to the point of being unusable; export a "
+        "token (any PAT with public-repo read access) to check them."
+    )
+
+
+if _GITHUB_TOKEN:
+    # Matched by scheme+netloc. Keep the token scoped to api.github.com — a "*"
+    # key here would leak it to every third-party host in the docs.
+    linkcheck_request_headers = {
+        "https://api.github.com/": {
+            "Authorization": f"Bearer {_GITHUB_TOKEN}",
+            "Accept": "application/vnd.github+json",
+        },
+    }
+else:
+    # Reported as "ignored" rather than checked — never as a pass.
+    linkcheck_ignore.append(r"^https://github\.com/")

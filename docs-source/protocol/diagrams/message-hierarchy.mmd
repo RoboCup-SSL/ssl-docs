@@ -1,0 +1,26 @@
+---
+config:
+  layout: elk
+  elk:
+    nodePlacementStrategy: NETWORK_SIMPLEX
+---
+flowchart TD
+    Wrapper["SSL_WrapperPacket<br/>one of detection / geometry present"]
+    Wrapper --> Detection["SSL_DetectionFrame<br/>camera_id, frame_number,<br/>t_capture, t_sent"]
+    Wrapper --> Geometry["SSL_GeometryData"]
+
+    Detection --> Balls["balls[]<br/>SSL_DetectionBall"]
+    Detection --> RY["robots_yellow[]<br/>SSL_DetectionRobot"]
+    Detection --> RB["robots_blue[]<br/>SSL_DetectionRobot"]
+
+    Geometry --> Field["field<br/>SSL_GeometryFieldSize"]
+    Geometry --> Calib["calib[]<br/>SSL_GeometryCameraCalibration"]
+
+    classDef slate fill:#f8fafc,stroke:#475569,color:#0f172a;
+    classDef cyan fill:#ecfeff,stroke:#0891b2,color:#164e63;
+    classDef purple fill:#faf5ff,stroke:#9333ea,color:#581c87;
+    classDef amber fill:#fffbeb,stroke:#d97706,color:#78350f;
+    class Wrapper slate;
+    class Detection,Geometry cyan;
+    class Balls,RY,RB purple;
+    class Field,Calib amber;

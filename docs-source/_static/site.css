@@ -36,3 +36,52 @@
 .two-col-diagram-grid .mermaid-container {
   width: 100%;
 }
+
+/* For diagrams rendered with useMaxWidth: false (native size instead of
+   shrink-to-fit-column) — scroll instead of overflowing the page if it's
+   wider than the column. */
+.wide-mermaid pre.mermaid,
+.wide-mermaid .mermaid-container {
+  overflow-x: auto;
+}
+
+/* Scale the whole rendered diagram up, text included. Mermaid's own
+   actorFontSize/messageFontSize/noteFontSize sequence config keys don't
+   reach the rendered <text> elements in the pinned mermaid version — they
+   stay hardcoded at 16px regardless. `zoom` (not `transform: scale`)
+   correctly reflows the layout box, so it doesn't overlap the content
+   below it.
+
+   sphinxcontrib-mermaid's own CSS (pre.mermaid > svg, specificity 0,1,2)
+   forces every diagram's SVG to a fixed height (mermaid_height, default
+   500px). For most diagrams that's load-bearing — it's what keeps a large
+   flowchart's raw viewBox from rendering at full intrinsic height, via
+   letterboxing (preserveAspectRatio: xMidYMid meet). It only becomes a
+   problem here because useMaxWidth:false + zoom already size these
+   diagrams from their own content, so the fixed-height letterbox just adds
+   blank bars on top. Scoped to wide-mermaid only — applying this globally
+   regressed other diagrams that rely on the fixed-height cap. */
+.wide-mermaid pre.mermaid > svg {
+  height: auto;
+  zoom: 2;
+}
+
+/* Same letterbox fix as above (see comment), without the zoom bump — for
+   flowcharts whose aspect ratio is wide/flat enough that the fixed-height
+   box wastes a lot of it as blank top/bottom bars, but don't need bigger
+   text. Only apply to diagrams confirmed wide via their rendered viewBox
+   (mermaid-cli) — a portrait diagram would instead grow uncontrolled
+   without the fixed-height cap, since width:100% + auto height scales
+   height up from the full container width. */
+.no-letterbox-mermaid pre.mermaid > svg {
+  height: auto;
+}
+
+/* furo's generic `.container` class (applied to every MyST {container} block,
+   including this one) adds fixed margin/padding that doesn't scale with the
+   diagram — a bigger fraction of a short diagram's height than a tall one, so
+   it reads as excess whitespace above/below on shorter sequence diagrams. */
+.wide-mermaid {
+  margin: 0;
+  padding: 0;
+}
