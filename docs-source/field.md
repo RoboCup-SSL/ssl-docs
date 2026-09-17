@@ -19,6 +19,7 @@ The following pages assist with materials and camera selection.
 - [Subflooring and Carpet](field/carpet.md)
 - [Camera and Lens Selection](field/cameras.md)
 - [Camera Field of View Calculator](field/camera-calculator.md)
+- [Lighting](field/lighting.md)
 
 ## Layout
 
@@ -48,6 +49,7 @@ caption: Contents
 field/carpet.md
 field/cameras.md
 field/camera-calculator.md
+field/lighting.md
 field/complayout.md
 field/lablayout.md
 field/network/compute.md
