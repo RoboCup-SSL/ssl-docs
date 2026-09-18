@@ -1,6 +1,6 @@
 # Events and Hosting Documentation
 
-This is the landing page for all things related to running SSL events and event hosting. If you're a participating team looking for information about how to join our community or attend an event, please see the official [SSL website](ssl.robocup.org) or [SSL Discord Server](https://discord.gg/t724m8c). This documentation covers how to run an event, not how to attend.
+This is the landing page for all things related to running SSL events and event hosting. If you're a participating team looking for information about how to join our community or attend an event, please see the official [SSL website](https://ssl.robocup.org) or [SSL Discord Server](https://discord.gg/t724m8c). This documentation covers how to run an event, not how to attend.
 
 ## Supporing an Existing Event
 
@@ -19,5 +19,21 @@ This page provides summary level resources to facilitate choosing a venue and su
 
 A good first step would be to identify a head organizer and a technical lead. These individuals would then build a "local organizing committee" and a "local technical committee".
 
+### Choosing a Venue
+
+ - [Venue Requirements](events/venuerequirements.md)
+ - [Venue Requirements Calculator](events/venue-calculator.md)
+
 ## Example Layouts
+
+```{toctree}
+---
+maxdepth: 1
+caption: Contents
+---
+events/venuerequirements.md
+events/venue-calculator.md
+events/setupguide.md
+events/travelcases.md
+```
 
