@@ -9,6 +9,8 @@ common to the league as a whole.
 - [Field Technical Documentation](field.md)
 - [Field Camera Calculator](field/camera-calculator.md)
 - [Protocol/Coms Technical Documentation](protocol.md)
+- [Events and Hosting Documentation](events.md)
+- [Venue Requirements Calculator](events/venue-calculator.md)
 
 ## Motivation
 
@@ -22,4 +24,5 @@ caption: Contents
 ---
 field
 protocol
+events
 ```
