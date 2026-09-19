@@ -2,8 +2,8 @@
 
 This is the landing page for all things related to running SSL events and event hosting. If you're a participating team
 looking for information about how to join our community or attend an event, please see the official
-[SSL website](https://ssl.robocup.org) or [SSL Discord Server](https://discord.com/invite/t724m8c). This documentation covers
-how to run an event, not how to attend.
+[SSL website](https://ssl.robocup.org) or [SSL Discord Server](https://discord.com/invite/t724m8c). This documentation
+covers how to run an event, not how to attend.
 
 ## Supporting an Existing Event
 
