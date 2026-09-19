@@ -193,8 +193,8 @@ at least a /24 subnet, with /16 preferred. For an example network, 10.10.0.0/16:
 
 - Subnet address CIDR notation: `10.10.0.0/16`
 - Gateway: 10.10.0.1
-- Reserved for management addressing: `10.10.0.2`-`10.10.0.5`
-- DHCP range: `10.10.0.6`-`10.10.255.249`
+- Reserved for management addressing: `10.10.0.2`-`10.10.0.50`
+- DHCP range: `10.10.0.51`-`10.10.255.249`
 - Broadcast address: `10.10.255.255`
 
 [CIDR standardized notation and allocations](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)

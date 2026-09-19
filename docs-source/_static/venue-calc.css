@@ -58,7 +58,8 @@
 /* A button sitting inline at the end of a lede sentence. */
 .venue-calc-lede .venue-calc-preset { margin-left: 0.5em; vertical-align: baseline; }
 .venue-calc button { margin-top: 0.25em; padding: 0.5em 1.2em; cursor: pointer; }
-.venue-calc button + button { margin-left: 0.5em; }
+.venue-calc-actions { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: 0.25em; }
+.venue-calc-actions button { margin-top: 0; }
 /* Nothing to export until Calculate has run once. */
 .venue-calc button:disabled {
   cursor: not-allowed;
@@ -124,6 +125,15 @@
 .venue-calc-calcs-2col td:last-child { width: auto; opacity: 1; }
 .venue-calc-calcs-2col td { line-height: 1.7; }
 .venue-calc-output { margin-top: 1em; }
+/* Shown in place of the tables once an input moves, so nobody reads figures
+   that no longer match the form. */
+.venue-calc-stale {
+  margin: 1em 0;
+  padding: 0.75em 1em;
+  border-left: 3px solid #9a6700;
+  background: var(--color-background-secondary, #f7f7f7);
+  font-size: 0.9em;
+}
 .venue-calc-out-head {
   margin: 1.5em 0 0.5em;
   padding-top: 0.5em;

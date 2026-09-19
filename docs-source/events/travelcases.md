@@ -42,3 +42,47 @@ case is to be packed at every layer. The cases are very full, so it's essential 
 pictures describe. These sheets can also help you located a needed piece of equipment.
 
 [Laminated Packing Inserts](https://docs.google.com/document/d/1DBrpu4QNOSp4uC7DHPw7sSZ3TgjXhoRiypexUmNRG-8/edit?usp=sharing).
+
+## Example Camera Setup
+
+Here's an example of two cameras in a redundant configuration on a Division A truss (one field half) in Incheon 2026.
+Note the colored tape on the cameras, cables, and mounting arms. That all corresponds to the above mentioned cases. In
+this picture, camera mount arms are from the green pelican, the cameras are from the orange, and one USB3 cable is from
+the pink pelican.
+
+![Two cameras in a redundant configuration on a Division A truss at Incheon 2026, with colored tape on the cameras, cables, and mounting arms](images/cameras_on_truss.jpg)
+
+## Photos from Packing Lists
+
+You'll notice the following photos (taken from the laminated packing sheets) shows layer by layer color coordinated
+packing as described.
+
+### Case 2
+
+Here's an example of packing Case 2, a large pelican with camera compute and streaming cameras and lenses. All of this
+guidance should also be included in the laminated packing insert.
+
+Layer 1
+
+![Case 2, layer 1](images/C2L1.jpg)
+
+Layer 2
+
+![Case 2, layer 2](images/C2L2.jpg)
+
+### Case 3
+
+Here's an example of packing Case 3, a small pelican with cables and mounting hardware. All of this guidance should be
+included in the laminated packing insert.
+
+Layer 1
+
+![Case 3, layer 1](images/C3L1.jpg)
+
+Layer 2
+
+![Case 3, layer 2](images/C3L2.jpg)
+
+Layer 3
+
+![Case 3, layer 3](images/C3L3.jpg)

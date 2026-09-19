@@ -42,6 +42,7 @@ function vcRadio(name) {
 function vcSetVoltage(v, a) {
   document.getElementById('vc-voltage').value = v;
   document.getElementById('vc-amps').value = a;
+  vcInvalidate();
 }
 
 document.getElementById('vc-preset-na').addEventListener('click', function () {
@@ -179,6 +180,17 @@ const VC_PITS_VLAN = 200;
 // anything else that wants to sit at a fixed address. DHCP starts just above.
 const VC_MGMT_RESERVED_TO = 50;
 
+// One chair per competitor in the pits, since everyone needs somewhere to sit
+// at their own bench, and one per table at the field for whoever is operating
+// it. Organizer tables get one each on top.
+const VC_CHAIRS_PER_COMPETITOR = 1;
+const VC_CHAIRS_PER_FIELD_TABLE = 1;
+
+// Camera systems the league owns and ships in its travel cases: enough for
+// 4 Division A fields or 8 Division B fields. Anything past this the host has
+// to source, and cameras and lenses are a long lead time item.
+const VC_LEAGUE_CAMERA_SYSTEMS = 8;
+
 // One remote control per team at the field, so a field either has both or none.
 const VC_REMOTES_PER_FIELD = 2;
 
@@ -216,7 +228,10 @@ function vcRestoreFieldEquipment() {
   document.getElementById('vc-poe-status').checked = VC_POE_STATUS_DEFAULT;
 }
 
-document.getElementById('vc-equip-reset').addEventListener('click', vcRestoreFieldEquipment);
+document.getElementById('vc-equip-reset').addEventListener('click', function () {
+  vcRestoreFieldEquipment();
+  vcInvalidate();
+});
 
 // Added on top of pit footprint for aisles between rows. The published band
 // areas are footprint only, with no room to walk between them.
@@ -308,11 +323,13 @@ const VC_ADVANCED_GROUPS = {
   equipment: {
     'vc-adv-remotes-per-field': VC_REMOTES_PER_FIELD,
     'vc-adv-monitors-per-field': VC_MONITORS_PER_FIELD,
+    'vc-adv-chairs-per-field-table': VC_CHAIRS_PER_FIELD_TABLE,
     'vc-adv-field-equip-tables': VC_FIELD_EQUIPMENT_TABLES,
     'vc-adv-field-tables-max-a': VC_FIELD_TABLES_MAX_A,
     'vc-adv-field-tables-max-b': VC_FIELD_TABLES_MAX_B,
   },
   pits: {
+    'vc-adv-chairs-per-competitor': VC_CHAIRS_PER_COMPETITOR,
     'vc-adv-circulation': VC_PITS_CIRCULATION * 100,
     'vc-adv-other-area': VC_OTHER_AREA_SQM,
   },
@@ -355,6 +372,7 @@ document.querySelectorAll('[data-vc-adv-reset]').forEach(function (button) {
   button.addEventListener('click', function () {
     vcRestoreAdvanced(button.getAttribute('data-vc-adv-reset'));
     vcRefresh();
+    vcInvalidate();
   });
 });
 
@@ -444,6 +462,24 @@ function vcSwitchCount(portsWithHeadroom) {
 // serialised from, so the file always matches exactly what's on screen.
 let vcReport = [];
 
+// The headline numbers a host quotes at a venue, collected alongside the full
+// report. Values are plain text, never HTML, since they go straight into
+// Markdown and the clipboard.
+let vcSummary = [];
+
+// `estimated` marks a headline whose value rests on a figure no league
+// document states, so the Markdown export can say so rather than presenting
+// every line with the same authority.
+function vcSum(label, value, estimated) {
+  vcSummary.push({ label, value, estimated: !!estimated });
+}
+
+// "a", "a and b", "a, b and c".
+function vcList(items) {
+  if (items.length <= 1) return items.join('');
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
+}
+
 function vcHead(label) {
   vcReport.push({ type: 'head', text: label });
   return `<h3 class="venue-calc-out-head">${label}</h3>`;
@@ -496,6 +532,7 @@ function vcW(w) {
 function vcCalculate() {
   vcRefresh();
   vcReport = [];
+  vcSummary = [];
 
   const pitsA = vcDivisionPits('a');
   const pitsB = vcDivisionPits('b');
@@ -546,11 +583,36 @@ function vcCalculate() {
     ['Competitors', Math.round(pitsA.people), Math.round(pitsB.people), `<strong>${competitors}</strong>`],
     ['Pit tables', pitsA.tables, pitsB.tables, pitsA.tables + pitsB.tables],
   ]);
-  html += vcNote(`Team sizes ${teamMode}. Competitors exclude referees, organizers, volunteers and spectators.`);
-  html += vcTable(['Fields', 'Count'],
-    activeGroups.map(g => [g.label, g.n])
-      .concat([{ cells: ['Total', `<strong>${totalFields}</strong>`], cls: 'vc-total' }]));
+  html += vcNote(`Team sizes ${teamMode}. Competitors counts team members only, so referees, organizers, `
+    + `volunteers and spectators are on top of it.`);
+  const camerasTotal = activeGroups.reduce((sum, g) => sum + g.cfg.cameras * g.n, 0);
+  html += vcTable(['Fields', 'Count', 'Cameras each', 'Cameras'],
+    activeGroups.map(g => [g.label, g.n, g.cfg.cameras, g.cfg.cameras * g.n])
+      .concat([{
+        cells: ['Total', `<strong>${totalFields}</strong>`, '', `<strong>${camerasTotal}</strong>`],
+        cls: 'vc-total',
+      }]));
   html += vcNote(`Field counts ${fieldMode}.`);
+  vcSum('Teams', `${teams} (${pitsA.teams} Division A, ${pitsB.teams} Division B)`);
+  // Average mode multiplies the organizer's own roster figures; enumerate mode
+  // has only the band, so it falls back to midpoints.
+  vcSum('Competitors', `${competitors}`, vcRadio('vc-team-mode') === 'matrix');
+  vcSum('Fields', `${totalFields} (${activeGroups.map(g => `${g.n} ${g.label}`).join(', ')})`, true);
+  vcSum('Camera systems', `${camerasTotal}`, true);
+  if (camerasTotal > VC_LEAGUE_CAMERA_SYSTEMS) {
+    html += vcNote(
+      `This needs ${camerasTotal} camera systems and the league owns ${VC_LEAGUE_CAMERA_SYSTEMS}. `
+        + `Talk to the committees early, since cameras and lenses are a long lead time item.`,
+      true
+    );
+  }
+  if (activeGroups.some(g => g.cfg.direct)) {
+    html += vcNote(
+      'A direct wired configuration needs PoE cameras. The league does not own any, so those have to be '
+        + 'sourced locally.',
+      true
+    );
+  }
 
   // --- Floor area -------------------------------------------------------
 
@@ -594,12 +656,13 @@ function vcCalculate() {
     { cells: ['Total floor area', '', `<strong>${vcSqm(totalArea)}</strong>`,
               `<strong>${vcSqft(totalArea)}</strong>`], cls: 'vc-total' },
   ]));
+  vcSum('Total floor area', `${vcSqm(totalArea)} m\u00b2 (${vcSqft(totalArea)} sq.ft)`, true);
   if (competitors > 0) {
     // Not a code requirement — a sanity figure to check against whatever
     // occupancy number the venue quotes, which counts heads, not equipment.
-    html += vcNote(`That's ${(totalArea / competitors).toFixed(1)} m&sup2; `
+    html += vcNote(`That works out to ${(totalArea / competitors).toFixed(1)} m&sup2; `
       + `(${(totalArea * VC_SQFT_PER_SQM / competitors).toFixed(0)} sq.ft) per competitor across `
-      + `${competitors} of them &mdash; worth checking against the occupancy limit the venue quotes.`);
+      + `${competitors} of them. Worth checking against whatever occupancy limit the venue quotes.`);
   }
 
   // --- Tables -----------------------------------------------------------
@@ -614,15 +677,16 @@ function vcCalculate() {
   const fieldTablesTotal = activeGroups.reduce((sum, g) => sum + vcFieldTables(g).total * g.n, 0);
   const pitTablesTotal = pitsA.tables + pitsB.tables + organizerTables;
 
-  html += vcHead('Tables');
+  html += vcHead('Tables and Chairs');
   html += vcTable(['At the fields', 'Teams served', 'Equipment', 'Team', 'Per field', 'Total'],
     fieldTableRows.concat([
       { cells: ['All fields', '', '', '', '', `<strong>${fieldTablesTotal}</strong>`], cls: 'vc-total' },
     ]));
   if (activeGroups.some(g => vcFieldTables(g).capped)) {
-    html += vcNote(`Highlighted fields serve more teams than they have room for `
-      + `&mdash; ${fieldTableCap.a} tables fit a Division A field and ${fieldTableCap.b} a Division B one, `
-      + `so teams there share a table between matches rather than each keeping one.`, true);
+    const cappedLabels = activeGroups.filter(g => vcFieldTables(g).capped).map(g => g.label);
+    html += vcNote(`${vcList(cappedLabels)} serve more teams than they have room for. `
+      + `${fieldTableCap.a} tables fit a Division A field and ${fieldTableCap.b} fit a Division B one, so teams `
+      + `there share a table between matches rather than each keeping one.`, true);
   }
   html += vcTable(['In the pits', 'Tables'], [
     pitsA.teams > 0 ? [`Division A teams &times; ${pitsA.teams}`, pitsA.tables] : null,
@@ -633,6 +697,20 @@ function vcCalculate() {
   html += vcTable(['Event total', 'Tables'], [
     { cells: ['Fields and pits', `<strong>${fieldTablesTotal + pitTablesTotal}</strong>`], cls: 'vc-total' },
   ]);
+
+  const chairsPerCompetitor = vcNum('vc-adv-chairs-per-competitor');
+  const chairsPerFieldTable = vcNum('vc-adv-chairs-per-field-table');
+  const pitChairs = Math.ceil(competitors * chairsPerCompetitor) + organizerTables;
+  const fieldChairs = Math.ceil(fieldTablesTotal * chairsPerFieldTable);
+  html += vcTable(['Chairs', 'Each', 'Count'], [
+    ['Competitors', `${chairsPerCompetitor} per competitor`, Math.ceil(competitors * chairsPerCompetitor)],
+    ['Organizers', '1 per table', organizerTables],
+    ['At the fields', `${chairsPerFieldTable} per table`, fieldChairs],
+    { cells: ['Total', '', `<strong>${pitChairs + fieldChairs}</strong>`], cls: 'vc-total' },
+  ]);
+  vcSum('Tables', `${fieldTablesTotal + pitTablesTotal} (${fieldTablesTotal} at the fields, `
+    + `${pitTablesTotal} in the pits)`, true);
+  vcSum('Chairs', `${pitChairs + fieldChairs}`, true);
 
   // --- Power ------------------------------------------------------------
 
@@ -737,6 +815,8 @@ function vcCalculate() {
     { cells: ['Provisioned capacity', `<strong>${vcW(totalConnected)}</strong>`], cls: 'vc-total' },
     { cells: ['Expected draw', `<strong>${vcW(totalAverage)}</strong>`], cls: 'vc-total' },
   ]);
+  vcSum('Power provisioned', vcW(totalConnected), true);
+  vcSum('Power expected draw', vcW(totalAverage), true);
 
   // --- Circuits ---------------------------------------------------------
 
@@ -753,13 +833,15 @@ function vcCalculate() {
   html += vcTable(['Circuits', 'Floor', 'Truss', 'Total'], fieldCircuitRows.concat([
     streamCircuits > 0 ? ['Streaming', streamCircuits, '', streamCircuits] : null,
     teamsPerCircuit >= 1
-      ? [`Pits &mdash; ${teamsPerCircuit} team${teamsPerCircuit === 1 ? '' : 's'} per circuit`,
+      ? [`Pits, ${teamsPerCircuit} team${teamsPerCircuit === 1 ? '' : 's'} per circuit`,
          pitsCircuits, '', pitsCircuits]
-      : { cells: [`Pits &mdash; ${Math.ceil(teamDropW / circuitW)} circuits per team drop`,
+      : { cells: [`Pits, ${Math.ceil(teamDropW / circuitW)} circuits per team drop`,
                   pitsCircuits, '', pitsCircuits], cls: 'vc-warn' },
     { cells: ['Total', '', '', `<strong>${pitsCircuits + fieldCircuits + streamCircuits}</strong>`],
       cls: 'vc-total' },
   ]));
+  vcSum('Circuits', `${pitsCircuits + fieldCircuits + streamCircuits} at `
+    + `${voltage} V / ${amps} A`, true);
   html += vcNote(`Usable per circuit: ${vcW(circuitW)} `
     + `(${voltage} V &times; ${amps} A &times; ${(derate * 100).toFixed(0)}%). Fields are counted separately `
     + `from each other, and truss outlets separately from floor ones, since neither can share a breaker.`);
@@ -780,23 +862,28 @@ function vcCalculate() {
     n += vcStatusBoards(g);
     if (vcHasAudio(g)) n += 1;
     if (wLighting > 0) n += 1;
+    // The streaming rig sits at the field it covers, so its outlet is floor
+    // level at that field rather than an event-wide extra.
+    if (vcHasStream(g)) n += 1;
     fieldGroundOutlets += n * g.n;
     trussOutlets += g.cfg.nucs * g.n;
     outletRows.push([`${g.label} &times; ${g.n}`, n, g.cfg.nucs, (n + g.cfg.nucs) * g.n]);
   });
 
-  const totalOutlets = pitsOutlets + fieldGroundOutlets + trussOutlets + streamingCount;
+  const totalOutlets = pitsOutlets + fieldGroundOutlets + trussOutlets;
 
   html += vcHead('Outlets');
   html += vcTable(['Outlets', 'Floor, each', 'Truss, each', 'Total'], outletRows.concat([
-    { cells: ['All fields', '', '', fieldGroundOutlets + trussOutlets], cls: 'vc-subtotal' },
-    ['Pits (teams + organizers)', '', '', pitsOutlets],
-    streamingCount > 0 ? ['Streaming', '', '', streamingCount] : null,
+    { cells: ['Field floor', '', '', fieldGroundOutlets], cls: 'vc-subtotal' },
+    { cells: ['Field truss', '', '', trussOutlets], cls: 'vc-subtotal' },
+    { cells: ['Pits floor', '', '', pitsOutlets], cls: 'vc-subtotal' },
     { cells: ['Total', '', '', `<strong>${totalOutlets}</strong>`], cls: 'vc-total' },
   ]));
+  vcSum('Outlets', `${totalOutlets} (${fieldGroundOutlets} field floor, ${trussOutlets} field truss, `
+    + `${pitsOutlets} pits floor)`, true);
   if (trussOutlets > 0) {
-    html += vcNote(`${trussOutlets} of these are at truss height, one per truss `
-      + `NUC &mdash; budget rigging for them, not floor drops.`, true);
+    html += vcNote('Field truss outlets are one per truss NUC, at mounting height. Price them with the rigging '
+      + 'rather than as floor drops.', true);
   }
 
   // --- Network ----------------------------------------------------------
@@ -804,6 +891,7 @@ function vcCalculate() {
   const spare = 1 + vcNum('vc-adv-spare-ports') / 100;
   const networkRows = [];
   let totalSwitchPorts = 0;
+  let totalSwitches = 0;
   let totalPoeW = 0;
   let hostAdapterPoeW = 0;
 
@@ -827,6 +915,7 @@ function vcCalculate() {
     if (g.cfg.direct) hostAdapterPoeW += g.cfg.cameras * poeCameraW * g.n;
 
     const switches = vcSwitchCount(sized);
+    totalSwitches += switches * g.n;
     networkRows.push({
       cells: [
         `${g.label} &times; ${g.n}`,
@@ -851,7 +940,7 @@ function vcCalculate() {
     ]));
   if (hostAdapterPoeW > 0) {
     html += vcNote(`A further ${vcW(hostAdapterPoeW)} of PoE comes from the vision `
-      + `computers' host adapters, for direct-wired cameras, not from the field switches.`);
+      + `computers' host adapters, for direct wired cameras, rather than from the field switches.`);
   }
   html += vcTable(['Venue-provided drops', 'Each', 'Count'], [
     ['Field uplinks', '1 per field', totalFields],
@@ -873,7 +962,7 @@ function vcCalculate() {
         octet,
         `10.${octet}.0.0/16`,
         `10.${octet}.0.1`,
-        `10.${octet}.0.${VC_MGMT_RESERVED_TO + 1} &ndash; 10.${octet}.255.249`,
+        `10.${octet}.0.${VC_MGMT_RESERVED_TO + 1} to 10.${octet}.255.249`,
       ],
       cls: octet > 250 ? 'vc-warn' : '',
     };
@@ -894,22 +983,51 @@ function vcCalculate() {
   ]));
   html += vcNote(
     `VLAN id matches the second octet, so an address says which field it is. Per field: .0.1 gateway, `
-      + `.0.2&ndash;.0.${VC_MGMT_RESERVED_TO} reserved for fixed addresses, .255.255 broadcast, IPv4 only.`
+      + `.0.2 through .0.${VC_MGMT_RESERVED_TO} reserved for fixed addresses, .255.255 broadcast, IPv4 only.`
   );
   if (VC_VLAN_STEP * fieldIndex > 250) {
     html += vcNote(
-      'Past 25 fields this numbering runs out of second octet &mdash; renumber by hand from there.', true
+      'Past 25 fields this numbering runs out of second octet, so renumber by hand from there.', true
     );
   }
   html += vcNote(
-    'One per field is required &mdash; vision and referee multicast must not cross fields. '
+    'One per field is required, since vision and referee multicast must not cross fields. '
       + (pitsVlan > 0
           ? 'The pits VLAN is optional; ask for it anyway.'
           : 'No pits VLAN: the pits have no wired drops.')
   );
 
+  vcSum('Network drops from the venue', `${venueDrops}`, true);
+  vcSum('Field switches', `${totalSwitches} at ${VC_FIELD_SWITCH_PORTS} ports`, true);
+  vcSum('VLANs', `${totalFields + pitsVlan}`);
+
   document.getElementById('vc-output').innerHTML = html;
-  document.getElementById('vc-download').disabled = false;
+  vcSetExportsEnabled(true);
+}
+
+// Results go stale the moment any input moves, so the tables are cleared and
+// the exports switched off rather than left showing numbers that no longer
+// match the form.
+function vcSetExportsEnabled(enabled) {
+  ['vc-download', 'vc-download-md', 'vc-copy'].forEach(function (id) {
+    document.getElementById(id).disabled = !enabled;
+  });
+}
+
+function vcInvalidate() {
+  if (vcReport.length === 0) return;
+  vcReport = [];
+  vcSummary = [];
+  document.getElementById('vc-output').innerHTML =
+    '<p class="venue-calc-stale">Inputs changed. Press Calculate to update the results.</p>';
+  vcSetExportsEnabled(false);
+}
+
+const vcRoot = document.querySelector('.venue-calc');
+if (vcRoot) {
+  ['input', 'change'].forEach(function (evt) {
+    vcRoot.addEventListener(evt, vcInvalidate);
+  });
 }
 
 document.getElementById('vc-calc').addEventListener('click', vcCalculate);
@@ -1007,18 +1125,69 @@ function vcReportToCsv() {
   return lines.join('\r\n');
 }
 
-document.getElementById('vc-download').addEventListener('click', function () {
-  if (vcReport.length === 0) return;
-  // The BOM is what makes Excel read the file as UTF-8 rather than latin-1.
-  const blob = new Blob(['\uFEFF' + vcReportToCsv()], { type: 'text/csv;charset=utf-8;' });
+function vcSummaryToMarkdown() {
+  const lines = [
+    '# SSL Venue Requirements',
+    '',
+    `Generated ${new Date().toISOString().slice(0, 10)} by the SSL Venue Requirements Calculator.`,
+    '',
+  ];
+  vcSummary.forEach(function (entry) {
+    lines.push(`- **${vcPlain(entry.label)}:** ${vcPlain(entry.value)}${entry.estimated ? ' (est.)' : ''}`);
+  });
+  lines.push('');
+  lines.push('Lines marked (est.) rest on assumptions this calculator makes rather than on a published league');
+  lines.push('requirement. Everything else follows from figures the league documents or from what you entered.');
+  lines.push('');
+  lines.push('Planning figures for a venue conversation, not an electrical design. Have an electrician or the');
+  lines.push("venue's own facilities team confirm circuit counts and layout.");
+  return lines.join('\n');
+}
+
+function vcSaveFile(text, filename, mime) {
+  const blob = new Blob([text], { type: mime });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `ssl-venue-plan-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.download = filename;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
+}
+
+function vcStamp() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+document.getElementById('vc-download-md').addEventListener('click', function () {
+  if (vcSummary.length === 0) return;
+  vcSaveFile(vcSummaryToMarkdown(), `ssl-venue-summary-${vcStamp()}.md`, 'text/markdown;charset=utf-8;');
+});
+
+document.getElementById('vc-copy').addEventListener('click', function () {
+  if (vcSummary.length === 0) return;
+  const button = this;
+  const restore = function (message) {
+    const original = button.textContent;
+    button.textContent = message;
+    setTimeout(function () { button.textContent = original; }, 1500);
+  };
+  // The clipboard API needs a secure context, so a docs build opened over
+  // file:// will reject. Say so rather than failing silently.
+  if (!navigator.clipboard) {
+    restore('Copy unavailable');
+    return;
+  }
+  navigator.clipboard.writeText(vcSummaryToMarkdown())
+    .then(function () { restore('Copied'); })
+    .catch(function () { restore('Copy failed'); });
+});
+
+document.getElementById('vc-download').addEventListener('click', function () {
+  if (vcReport.length === 0) return;
+  // The BOM is what makes Excel read the file as UTF-8 rather than latin-1.
+  vcSaveFile('\uFEFF' + vcReportToCsv(), `ssl-venue-plan-${vcStamp()}.csv`, 'text/csv;charset=utf-8;');
 });
 
 }
