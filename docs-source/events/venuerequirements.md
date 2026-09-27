@@ -41,10 +41,14 @@ previous events the league has held.
 
 ## Setup and Teardown
 
-Remember to book the venue for setup and teardown, not just the days you're competing. A full field setup can be done in
-a day. Teardown can be done in a half day, but only with a plan. It's worth making that plan, because the saved day
-usually shows up directly in the venue quote. Venues often price setup days differently than event days, so it's worth
-asking early rather than finding out at the end.
+Remember to book the venue for setup and teardown, not just the days you're competing. A small event running on its own
+can be set up in a day, and a full international event needs two. Plan on two either way if you're sharing the venue
+with other leagues, since the extra time goes on waiting for shared rigging and networking staff rather than on our own
+work.
+
+Teardown can be done in a half day, but only with a plan. It's worth making that plan, because the saved day usually
+shows up directly in the venue quote. Venues often price setup days differently than event days, so it's worth asking
+early rather than finding out at the end.
 
 Rigging is usually done by whichever contractor the venue already works with, so you won't be shopping around on
 schedule. Ask what their lead time and availability look like while you're still negotiating dates.
@@ -81,9 +85,16 @@ internationally compatible. This section outlines the power requirements. It's w
 extra outlets. In many cases it's cheaper to buy local power strips wholesale and only have the venue provide
 approximate single outlet/plug drops with the organizer or teams providing power strips/extensions.
 
-The event organizer only needs to provide 1 ~1500W drop per team table cluster. Event organizers should plan for an
-average power usage of 750W per team (this is conservative) and should include outlets for the needed field equipment.
-Total field power draw in its full configuration will not exceed ~1.2kW, excluding any streaming PCs.
+The event organizer only needs to provide 1 ~1400W drop per team table cluster. That figure is a circuit rating, not a
+continuous load. It's sized so a team can run a hot air rework station while repairing a robot, which any one team does
+for a few minutes at a time. The practical effect is that each team needs the equivalent of one standard 120V/20A booth
+circuit, or 230V/16A outside North America. At 230V two teams will share a single 16A circuit, which is worth pointing
+out to the venue since it halves the circuit count.
+
+Event organizers should plan for an average power usage of 750W per team (this is conservative) and should include
+outlets for the needed field equipment. When sizing the feeder, ask the venue's electrician to apply a normal receptacle
+demand factor rather than summing the per team circuit ratings. Total field power draw in its full configuration will
+not exceed ~1.2kW, excluding any streaming PCs.
 
 ## Network
 

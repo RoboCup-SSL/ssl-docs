@@ -258,14 +258,17 @@ const VC_POWER = {
   // not a preference.
   circuitDerate: 0.80,
 
-  // Applied to field-side nameplate load to estimate real draw. Taken from the
-  // league's own published 1500 W provisioned / 750 W average team ratio,
-  // since no equivalent average is published for field equipment.
+  // Applied to field-side nameplate load to estimate real draw. Roughly the
+  // league's own provisioned-to-average team ratio, since no equivalent average
+  // is published for field equipment.
   diversity: 0.50,
 
   // Published in Venue Requirements: provision this much per team, plan the
   // building aggregate on the average.
-  teamDropW: 1500,
+  // Sized so a team can run a hot air rework station, not for continuous draw.
+  // 1400 rather than 1500 so two teams fit one 230 V / 16 A circuit, which
+  // halves the circuit count at European venues for no practical difference.
+  teamDropW: 1400,
   teamAverageW: 750,
 
   // Nameplate / PSU-rating estimates against the minimum specs on the Compute

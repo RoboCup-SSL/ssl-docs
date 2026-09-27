@@ -340,11 +340,11 @@ to the venue.
           <td>volts &times; amps &times; <strong>80%</strong>. The derate is the standard continuous-load allowance,
           set by wiring regulation rather than by preference</td></tr>
       <tr><th scope="row">Per team</th>
-          <td><strong>1500 W</strong> provisioned, <strong>750 W</strong> expected draw, per
+          <td><strong>1400 W</strong> provisioned, <strong>750 W</strong> expected draw, per
           <a href="venuerequirements.html#power">Venue Requirements</a></td></tr>
       <tr><th scope="row">Field diversity</th>
-          <td>field nameplate load &times; <strong>0.5</strong> for expected draw, reusing the published 1500 / 750
-          team ratio, since no equivalent average is published for field equipment</td></tr>
+          <td>field nameplate load &times; <strong>0.5</strong> for expected draw, roughly the provisioned to
+          average team ratio, since no equivalent average is published for field equipment</td></tr>
       <tr><th scope="row">Mains-powered, per field</th>
           <td>vision + game controller computers together <strong>500 W</strong>, plus a
           <strong>45 W</strong> monitor each<br>
@@ -511,9 +511,9 @@ should replace it with a real figure once you have one.</p>
     <td>Config <a href="../field/network/compnetwork.html#cameras">published</a>, wattage estimated</td></tr>
 <tr><th scope="row">Field expected draw</th>
     <td>connected load &times; 0.5 diversity</td>
-    <td>Estimated, taken from the published 1500 / 750 team ratio</td></tr>
+    <td>Estimated, roughly the provisioned to average team ratio</td></tr>
 <tr><th scope="row">Pits capacity</th>
-    <td>teams &times; 1500 W provisioned; teams &times; 750 W expected</td>
+    <td>teams &times; 1400 W provisioned; teams &times; 750 W expected</td>
     <td><a href="venuerequirements.html#power">Published</a></td></tr>
 <tr><th scope="row">Where the figures live</th>
     <td>none of the above are on the form, since they're regulatory, published, or nameplate estimates. All of them
