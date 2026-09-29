@@ -1,0 +1,175 @@
+/* Mirrors camera-calc.css so the two calculators read as one control. Kept as
+   a separate selector tree rather than shared classes because the markup and
+   field sets differ; only the visual language is common. */
+.venue-calc { border: 1px solid var(--color-background-border, #ccc); border-radius: 6px; padding: 1em; margin: 1em 0; }
+/* Whole-form starting points, above the first section. */
+.venue-calc-scenarios {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+.venue-calc-scenarios + .venue-calc-note { margin: 0 0 1em; }
+.venue-calc-group { border: 1px solid var(--color-background-border, #ddd); border-radius: 6px; margin: 0 0 1em 0; padding: 0.75em 1em 1em; }
+.venue-calc-group legend { font-weight: bold; padding: 0 0.4em; }
+.venue-calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75em; }
+.venue-calc-grid label { display: flex; flex-direction: column; font-size: 0.9em; gap: 0.25em; }
+.venue-calc-grid label > span:first-child { display: flex; align-items: center; min-height: 1.4em; gap: 0.3em; }
+.venue-calc-grid input, .venue-calc-grid select { padding: 0.3em; }
+.venue-calc-grid input:disabled {
+  background: var(--color-background-secondary, #e9e9e9);
+  color: var(--color-foreground-muted, #767676);
+  border-color: var(--color-background-border, #ccc);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+.venue-calc-matrix { width: 100%; margin: 0.75em 0 0; font-size: 0.9em; border-collapse: collapse; }
+.venue-calc-matrix th, .venue-calc-matrix td {
+  padding: 0.5em 0.7em;
+  text-align: left;
+  border: 1px solid var(--color-background-border, #ddd);
+}
+.venue-calc-matrix thead th { background: var(--color-background-secondary, #f3f3f3); }
+.venue-calc-matrix input { width: 100%; max-width: 7em; padding: 0.3em; }
+.venue-calc-matrix input:disabled {
+  background: var(--color-background-secondary, #e9e9e9);
+  color: var(--color-foreground-muted, #767676);
+  border-color: var(--color-background-border, #ccc);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+/* Row labels in the first column read as data labels, not headings — kept as
+   <th scope="row"> for screen readers but weighted like the cells beside them. */
+.venue-calc-matrix tbody th { font-weight: normal; }
+.venue-calc-matrix tfoot th {
+  background: var(--color-background-secondary, #f3f3f3);
+  border-top: 2px solid var(--color-background-border, #ccc);
+}
+.venue-calc-matrix + .venue-calc-matrix { margin-top: 1em; }
+.venue-calc-radio { display: flex; gap: 1.5em; margin: 0.75em 0; font-size: 0.9em; flex-wrap: wrap; }
+.venue-calc-radio label { display: flex; align-items: center; gap: 0.4em; font-weight: normal; }
+.venue-calc-note { font-size: 0.85em; opacity: 0.75; margin: 0.25em 0 0; }
+/* Guidance meant to be read before touching the controls, so unlike a note it
+   keeps full contrast. */
+.venue-calc-lede { font-size: 0.9em; margin: 0 0 0.5em; }
+/* A button sitting inline at the end of a lede sentence. */
+.venue-calc-lede .venue-calc-preset { margin-left: 0.5em; vertical-align: baseline; }
+.venue-calc button { margin-top: 0.25em; padding: 0.5em 1.2em; cursor: pointer; }
+.venue-calc-actions { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: 0.25em; }
+.venue-calc-actions button { margin-top: 0; }
+/* Nothing to export until Calculate has run once. */
+.venue-calc button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.venue-calc-preset {
+  margin-top: 0 !important;
+  padding: 0.3em 0.7em !important;
+  font-size: 0.85em;
+  background: var(--color-background-secondary, #f0f0f0);
+  color: var(--color-foreground-primary, #000) !important;
+  border: 1px solid var(--color-background-border, #ccc);
+  border-radius: 4px;
+}
+.venue-calc-details {
+  margin-top: 1.5em;
+  border-top: 1px solid var(--color-background-border, #ddd);
+  padding-top: 0.75em;
+}
+.venue-calc-details > summary {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 0.3em 0;
+  list-style-position: outside;
+}
+.venue-calc-details > summary:hover { color: var(--color-link, #0a7); }
+.venue-calc-details[open] > summary { margin-bottom: 0.5em; }
+/* Per-fieldset disclosures sit inside a bordered group that already separates
+   them, so they drop the rule and the heavier spacing the page-level one has. */
+.venue-calc-details-inline {
+  margin-top: 0.75em;
+  border-top: 0;
+  padding-top: 0;
+}
+.venue-calc-details-inline > summary { font-weight: normal; font-size: 0.85em; opacity: 0.8; }
+.venue-calc-details-inline > summary:hover { opacity: 1; }
+.venue-calc-details-inline .venue-calc-note:first-of-type { margin-top: 0; }
+/* Advanced Configuration holds the numbers a planner normally shouldn't touch,
+   so its summary sits a shade quieter still than "Show calculations". */
+.venue-calc-advanced > summary { font-style: italic; }
+.venue-calc-advanced .venue-calc-grid { margin-top: 0.25em; }
+.venue-calc-calc-head {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 1.25em 0 0.4em;
+}
+.venue-calc-calcs { width: 100%; font-size: 0.85em; margin: 0; border-collapse: collapse; }
+.venue-calc-calcs th, .venue-calc-calcs td {
+  padding: 0.5em 0.7em;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid var(--color-background-border, #e5e5e5);
+}
+.venue-calc-calcs thead th { background: var(--color-background-secondary, #f3f3f3); }
+/* Row labels name the output, the cells explain it — same weight as the
+   surrounding prose so the formula column stays the thing you read. */
+.venue-calc-calcs th[scope="row"] { font-weight: normal; width: 22%; }
+.venue-calc-calcs td:last-child { width: 30%; opacity: 0.75; }
+/* Two-column variant: no Source column, so the last cell is the working itself
+   and gets full width and full contrast. */
+.venue-calc-calcs-2col th[scope="row"] { width: 28%; }
+.venue-calc-calcs-2col td:last-child { width: auto; opacity: 1; }
+.venue-calc-calcs-2col td { line-height: 1.7; }
+.venue-calc-output { margin-top: 1em; }
+/* Shown in place of the tables once an input moves, so nobody reads figures
+   that no longer match the form. */
+.venue-calc-stale {
+  margin: 1em 0;
+  padding: 0.75em 1em;
+  border-left: 3px solid #9a6700;
+  background: var(--color-background-secondary, #f7f7f7);
+  font-size: 0.9em;
+}
+.venue-calc-out-head {
+  margin: 1.5em 0 0.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--color-background-border, #ddd);
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.venue-calc-out-head:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
+.venue-calc-out-table {
+  width: 100%;
+  font-size: 0.9em;
+  margin: 0 0 0.75em;
+  border-collapse: collapse;
+}
+.venue-calc-out-table th, .venue-calc-out-table td {
+  padding: 0.5em 0.8em;
+  border: 1px solid var(--color-background-border, #ddd);
+}
+/* First column names the row; every other column is a figure, so it reads
+   right-aligned and column totals line up on the decimal. */
+.venue-calc-out-table thead th {
+  text-align: right;
+  font-weight: bold;
+  background: var(--color-background-secondary, #f3f3f3);
+}
+.venue-calc-out-table thead th:first-child { text-align: left; }
+.venue-calc-out-table th[scope="row"] { text-align: left; font-weight: normal; }
+.venue-calc-out-table td { text-align: right; }
+.venue-calc-out-table .vc-subtotal { font-weight: bold; }
+.venue-calc-out-table .vc-subtotal th, .venue-calc-out-table .vc-subtotal td {
+  background: var(--color-background-secondary, #f7f7f7);
+}
+.venue-calc-out-table .vc-total { color: #1a7f37; font-weight: bold; }
+.venue-calc-out-table .vc-total th, .venue-calc-out-table .vc-total td {
+  border-top: 2px solid var(--color-background-border, #bbb);
+}
+.venue-calc-out-table .vc-warn { color: #9a6700; }
+.venue-calc-out-note { font-size: 0.85em; opacity: 0.75; margin: 0 0 1em; }
+.venue-calc-out-note.vc-warn { color: #9a6700; opacity: 1; }
