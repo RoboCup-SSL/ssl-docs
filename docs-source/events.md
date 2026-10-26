@@ -35,6 +35,10 @@ A good first step would be to identify a head organizer and a technical lead. Th
 - [Venue Requirements](events/venuerequirements.md)
 - [Venue Requirements Calculator](events/venue-calculator.md)
 
+### Equipment
+
+- [Requesting League Equipment](events/requestingequipment.md)
+
 ## Example Layouts
 
 ```{toctree}
@@ -46,4 +50,5 @@ events/venuerequirements.md
 events/venue-calculator.md
 events/setupguide.md
 events/travelcases.md
+events/requestingequipment.md
 ```
