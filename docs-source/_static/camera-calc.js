@@ -22,12 +22,51 @@ function ccLoadFieldPreset(w, h) {
   document.getElementById('cc-th').value = h;
 }
 
-document.getElementById('cc-preset-a').addEventListener('click', function () {
-  ccLoadFieldPreset(13400, 10400);
+// Field dimensions per the SSL Rules (Field Surface, Substitution Areas):
+// playing area, plus the field margin out to the walls (0.3 m along the
+// touch lines; behind the goal lines 0.6 m in Div A, 0.3 m in Div B). Div A's
+// extra 0.3 m behind each goal line is the Goal Substitution Area; the Center
+// Substitution Area sits inside the 0.3 m margin either way, so excluding the
+// exchange area only changes Div A. The carpet runs 0.7 m past the field lines
+// on all sides, outside the walls, for the referee walkway.
+const CC_FIELDS = {
+  a: { length: 12000, width: 9000, goalMargin: 600 },
+  b: { length: 9000, width: 6000, goalMargin: 300 },
+};
+
+function ccFieldArea() {
+  return document.querySelector('input[name="cc-area"]:checked').value;
+}
+
+function ccFieldPreset(div) {
+  const field = CC_FIELDS[div];
+  const area = ccFieldArea();
+  if (area === 'carpet') {
+    return [field.length + 2 * 700, field.width + 2 * 700];
+  }
+  const goalMargin = area === 'exchange' ? field.goalMargin : 300;
+  return [field.length + 2 * goalMargin, field.width + 2 * 300];
+}
+
+function ccUpdatePresetLabels() {
+  ['a', 'b'].forEach(function (div) {
+    const [w, h] = ccFieldPreset(div);
+    document.getElementById('cc-preset-' + div).innerHTML =
+      `Load Division ${div.toUpperCase()} (${w} &times; ${h} mm)`;
+  });
+}
+
+document.querySelectorAll('input[name="cc-area"]').forEach(function (radio) {
+  radio.addEventListener('change', ccUpdatePresetLabels);
 });
 
-document.getElementById('cc-preset-b').addEventListener('click', function () {
-  ccLoadFieldPreset(10400, 7400);
+// Same refresh-restores-radios issue as the other radio groups.
+ccUpdatePresetLabels();
+
+['a', 'b'].forEach(function (div) {
+  document.getElementById('cc-preset-' + div).addEventListener('click', function () {
+    ccLoadFieldPreset(...ccFieldPreset(div));
+  });
 });
 
 function ccUpdateDerivedSensorSize() {
@@ -147,6 +186,21 @@ document.querySelectorAll('input[name="cc-marker-mode"]').forEach(function (radi
 // browser-restored "custom" selection keeps its restored values.
 ccSyncMarkerModeDisabled();
 
+// League camera and lens, per Cameras and Lenses' Known Good Configurations.
+document.getElementById('cc-preset-league').addEventListener('click', function () {
+  document.querySelector('input[name="cc-sensor-mode"][value="size"]').checked = true;
+  document.querySelector('input[name="cc-lens-mode"][value="focal"]').checked = true;
+  document.getElementById('cc-rh').value = 2448;
+  document.getElementById('cc-rv').value = 2048;
+  document.getElementById('cc-sh').value = 8.45;
+  document.getElementById('cc-sv').value = 7.07;
+  document.getElementById('cc-f').value = 5;
+  ccSyncSensorModeDisabled();
+  ccUpdateDerivedFields();
+  ccSyncLensModeDisabled();
+  ccUpdateDerivedLensFields();
+});
+
 function ccWHFromFocal(h, f, sh, sv) {
   return [(h * sh) / f, (h * sv) / f];
 }
@@ -160,18 +214,45 @@ function ccWHFromDiagonalFov(h, fovD, aspect) {
   return [W, H];
 }
 
+// Max robot height per the SSL Rules (robot must fit in a 0.15 m high
+// cylinder); coverage is checked at this plane.
+const CC_ROBOT_HEIGHT = 150;
+
+function ccTileFit(kW, kH, tileW, tileH) {
+  // kW, kH: footprint per mm of camera distance above the coverage plane
+  // (W/h, H/h). Footprint grows linearly with distance, so each axis needs
+  // distance >= tile / k; the binding axis sets the minimum. Try the sensor
+  // both ways round, since a camera can be mounted rotated 90° to better
+  // match a tile whose aspect ratio differs from the sensor's.
+  const straight = Math.max(tileW / kW, tileH / kH);
+  const rotated = Math.max(tileW / kH, tileH / kW);
+  if (rotated < straight) {
+    return { rotated: true, dist: rotated, limitedBy: tileW / kH >= tileH / kW ? 'width' : 'height' };
+  }
+  return { rotated: false, dist: straight, limitedBy: tileW / kW >= tileH / kH ? 'width' : 'height' };
+}
+
 function ccComputeFromWH(h, W, H, rh, rv, d, nMin, tw, th, n) {
   const toDeg = r => (r * 180) / Math.PI;
   const fovH = 2 * toDeg(Math.atan(W / (2 * h)));
   const fovV = 2 * toDeg(Math.atan(H / (2 * h)));
+  // Density is evaluated at the ground plane (balls), where it's worst.
   const rho = Math.min(rh / W, rv / H);
   const pxAcross = rho * d;
   const passes = pxAcross >= nMin;
 
   const result = { fovH, fovV, W, H, rho, pxAcross, passes };
   if (!isNaN(tw) && !isNaN(th) && tw > 0 && th > 0) {
-    result.margin = (n * W * H) / (tw * th) * 100;
-    result.marginOk = result.margin > 100;
+    // Coverage is evaluated at the robot-top plane, where the footprint is
+    // smallest, so markers on robots against the wall are still in frame.
+    const [tileW, tileH] = ccPerCameraTarget(n, tw, th);
+    const fit = ccTileFit(W / h, H / h, tileW, tileH);
+    const scale = (h - CC_ROBOT_HEIGHT) / h;
+    const [alongW, alongH] = fit.rotated ? [H * scale, W * scale] : [W * scale, H * scale];
+    result.tile = { tileW, tileH, alongW, alongH, rotated: fit.rotated, limitedBy: fit.limitedBy };
+    result.minMount = CC_ROBOT_HEIGHT + fit.dist;
+    result.coverageOk = h >= result.minMount;
+    result.areaRatio = (n * W * H) / (tw * th) * 100;
   }
   return result;
 }
@@ -187,18 +268,20 @@ function ccComputeDiagonalFov(h, fovD, rh, rv, d, nMin, tw, th, n) {
 }
 
 function ccPerCameraTarget(n, tw, th) {
-  // 1 camera: full field. 2: split the wider axis in half (half field).
+  // 1 camera: full field. 2: split the longer axis in half (half field).
   // 4: split both axes in half (quadrants). Matches the convention used
   // throughout the Cameras and Lenses worked examples.
-  if (n === 2) return [tw / 2, th];
+  if (n === 2) return tw >= th ? [tw / 2, th] : [tw, th / 2];
   if (n === 4) return [tw / 2, th / 2];
   return [tw, th];
 }
 
 function ccValidFocalRange(h, sh, sv, rh, rv, d, nMin, targetW, targetH) {
-  // Coverage needs W(f) >= targetW and H(f) >= targetH; since W,H shrink as
+  // Coverage needs W(f) >= targetW and H(f) >= targetH at the robot-top
+  // plane, in whichever sensor orientation fits better; since W,H shrink as
   // f grows, this caps f from above.
-  const fMaxCoverage = Math.min((h * sh) / targetW, (h * sv) / targetH);
+  const fMaxCoverage = (h - CC_ROBOT_HEIGHT) * Math.max(Math.min(sh / targetW, sv / targetH),
+                                          Math.min(sh / targetH, sv / targetW));
   // Density needs rho(f) >= nMin/d; since rho grows as f grows, this bounds
   // f from below.
   const fMinDensity = Math.max((nMin * h * sh) / (d * rh), (nMin * h * sv) / (d * rv));
@@ -225,9 +308,18 @@ function ccRenderResult(r, nMin) {
   html += `<dt>Pixel Density</dt><dd>${r.rho.toFixed(4)} px/mm</dd>`;
   html += `<dt>Pixels Across Marker</dt><dd class="${r.passes ? 'cc-pass' : 'cc-fail'}">${r.pxAcross.toFixed(1)} px `
         + `(need &ge; ${nMin}) &mdash; ${r.passes ? 'PASS' : 'FAIL'}</dd>`;
-  if (r.margin !== undefined) {
-    html += `<dt>Coverage Margin</dt><dd class="${r.marginOk ? 'cc-pass' : 'cc-fail'}">${r.margin.toFixed(0)}% `
-          + `&mdash; ${r.marginOk ? 'PASS' : 'FAIL (at or below 100%)'}</dd>`;
+  if (r.tile !== undefined) {
+    const t = r.tile;
+    html += `<dt>Per-Camera Tile</dt><dd>${t.tileW.toFixed(0)} &times; ${t.tileH.toFixed(0)} mm, `
+          + `${t.rotated ? 'sensor rotated 90° (sensor width along field height)' : 'sensor width along field width'}</dd>`;
+    html += `<dt>Tile Coverage (at robot tops)</dt><dd class="${r.coverageOk ? 'cc-pass' : 'cc-fail'}">`
+          + `${t.alongW.toFixed(0)} &times; ${t.alongH.toFixed(0)} mm vs. tile `
+          + `(${(t.alongW - t.tileW).toFixed(0)} / ${(t.alongH - t.tileH).toFixed(0)} mm slack) &mdash; `
+          + `${r.coverageOk ? 'PASS' : 'FAIL'}</dd>`;
+    html += `<dt>Minimum Mount Height</dt><dd class="${r.coverageOk ? 'cc-pass' : 'cc-fail'}">`
+          + `${r.minMount.toFixed(0)} mm &mdash; limited by tile ${t.limitedBy}, no overlap between tiles</dd>`;
+    html += `<dt>Area Ratio</dt><dd>${r.areaRatio.toFixed(0)}% &mdash; necessary, not sufficient; ignores aspect `
+          + `ratio and tiling, use Tile Coverage above for pass/fail</dd>`;
   }
   return html;
 }

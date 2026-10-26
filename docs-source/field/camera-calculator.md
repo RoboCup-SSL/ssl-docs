@@ -14,12 +14,14 @@ Enter numbers instead of doing the arithmetic in
       <label><span>Field height (mm, optional)</span><input type="number" id="cc-th"></label>
     </div>
     <div class="camera-calc-radio">
-      <button type="button" class="camera-calc-preset" id="cc-preset-a">Load Division A (13400 &times; 10400 mm)</button>
-      <button type="button" class="camera-calc-preset" id="cc-preset-b">Load Division B (10400 &times; 7400 mm)</button>
+      <button type="button" class="camera-calc-preset" id="cc-preset-a">Load Division A</button>
+      <button type="button" class="camera-calc-preset" id="cc-preset-b">Load Division B</button>
     </div>
-    <p class="camera-calc-note">Use the full area the cameras need to see, not just the field lines — include the
-    surrounding margin (see the <a href="https://robocup-ssl.github.io/ssl-rules/sslrules.html#_dimensions">SSL
-    Rules</a>). The preset buttons above load the field of play size including that margin, per the SSL Rules.</p>
+    <div class="camera-calc-radio">
+      <label><input type="radio" name="cc-area" value="walls"> Inside walls</label>
+      <label><input type="radio" name="cc-area" value="exchange" checked> Inside walls + robot exchange area</label>
+      <label><input type="radio" name="cc-area" value="carpet"> Full carpet (outside walls)</label>
+    </div>
     <div class="camera-calc-radio">
       <label><input type="radio" name="cc-n" value="1" checked> 1 camera (full coverage)</label>
       <label><input type="radio" name="cc-n" value="2"> 2 cameras (half field)</label>
@@ -30,6 +32,9 @@ Enter numbers instead of doing the arithmetic in
 
 <fieldset class="camera-calc-group">
     <legend>Camera Parameters</legend>
+    <div class="camera-calc-radio">
+      <button type="button" class="camera-calc-preset" id="cc-preset-league">Load league camera (Blackfly S BFS-U3-51S5C-C, 5 mm lens)</button>
+    </div>
     <div class="camera-calc-grid">
       <label><span>Resolution width <span class="math notranslate nohighlight">\(R_h\)</span> (px)</span><input type="number" id="cc-rh" value="2448"></label>
       <label><span>Resolution height <span class="math notranslate nohighlight">\(R_v\)</span> (px)</span><input type="number" id="cc-rv" value="2048"></label>
